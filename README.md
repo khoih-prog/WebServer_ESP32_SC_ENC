@@ -105,7 +105,7 @@ Please also check these twin libraries
 3. [WebServer_ESP32_W5500](https://github.com/khoih-prog/WebServer_ESP32_W5500) for ESP32-boards using `LwIP W5500`
 3. [WebServer_ESP32_SC_W5500](https://github.com/khoih-prog/WebServer_ESP32_SC_W5500) for ESP32_S3-boards using `LwIP W5500`
 
-
+---
 
 #### Currently supported Boards
 
@@ -409,7 +409,7 @@ size_t streamFile();
 ---
 ---
 
-#### How to connect ENC28J60 to ESP32_S3
+### How to connect ENC28J60 to ESP32_S3
 
 You can change the `INT` pin to another one. Default is `GPIO4`
 
@@ -815,7 +815,7 @@ If you want to contribute to this project:
 
 ## Copyright
 
-- Copyright (c) 2016- Hristo Gochkov
+- Copyright (c) 2016- Ivan Grokhotkov
 
 - Copyright (c) 2022- Khoi Hoang
 
