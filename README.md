@@ -120,13 +120,13 @@ This [**WebServer_ESP32_SC_ENC** library](https://github.com/khoih-prog/WebServe
 #### ESP32S3_DEV
 
 <p align="center">
-    <img src="https://github.com/khoih-prog/WebServer_ESP32_SC_ENC/raw/main/Images/ESP32S3_DEV.png">
+    <img src="https://github.com/khoih-prog/WebServer_ESP32_SC_ENC/raw/main/pics/ESP32S3_DEV.png">
 </p> 
 
 #### ENC28J60
 
 <p align="center">
-    <img src="https://github.com/khoih-prog/WebServer_ESP32_SC_ENC/raw/main/Images/ENC28J60.png">
+    <img src="https://github.com/khoih-prog/WebServer_ESP32_SC_ENC/raw/main/pics/ENC28J60.png">
 </p>
  
  
@@ -424,13 +424,13 @@ You can change the `INT` pin to another one. Default is `GPIO4`
 #### ESP32S3_DEV
 
 <p align="center">
-    <img src="https://github.com/khoih-prog/WebServer_ESP32_SC_ENC/raw/main/Images/ESP32S3_DEV.png">
+    <img src="https://github.com/khoih-prog/WebServer_ESP32_SC_ENC/raw/main/pics/ESP32S3_DEV.png">
 </p> 
 
 #### ENC28J60
 
 <p align="center">
-    <img src="https://github.com/khoih-prog/WebServer_ESP32_SC_ENC/raw/main/Images/ENC28J60.png">
+    <img src="https://github.com/khoih-prog/WebServer_ESP32_SC_ENC/raw/main/pics/ENC28J60.png">
 </p>
 
 
