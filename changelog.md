@@ -15,12 +15,17 @@
 
 
 * [Changelog](#changelog)
+  * [Releases v1.1.0](#releases-v110)
   * [Releases v1.0.0](#releases-v100)
 
 ---
 ---
 
 ## Changelog
+
+#### Releases v1.1.0
+
+1. Add support to ESP32_S2-based boards using `LwIP ENC28J60 Ethernet`
 
 #### Releases v1.0.0
 

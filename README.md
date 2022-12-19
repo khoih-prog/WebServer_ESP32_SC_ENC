@@ -35,7 +35,7 @@
   * [Basic Operation](#basic-operations)
   * [Advanced Options](#advanced-options)
   * [Other Function Calls](#other-function-calls)
-* [How to connect ENC28J60 to ESP32_S3](#How-to-connect-ENC28J60-to-ESP32_S3)
+* [How to connect ENC28J60 to ESP32_S2/S3](#How-to-connect-ENC28J60-to-ESP32_S2S3)
 * [Examples](#examples)
   * [Original Examples](#original-examples)
     * [ 1. AdvancedWebServer](examples/AdvancedWebServer)
@@ -62,6 +62,7 @@
   * [ 4. MQTTClient_Basic on ESP32S3_DEV with ESP32_S3_ENC28J60](#4-MQTTClient_Basic-on-ESP32S3_DEV-with-ESP32_S3_ENC28J60)
   * [ 5. WebClient on ESP32S3_DEV with ESP32_S3_ENC28J60](#5-WebClient-on-ESP32S3_DEV-with-ESP32_S3_ENC28J60)
   * [ 6. UDPSendReceive on ESP32S3_DEV with ESP32_S3_ENC28J60](#6-UDPSendReceive-on-ESP32S3_DEV-with-ESP32_S3_ENC28J60)
+  * [ 7. UdpNTPClient on ESP32S2_DEV with ESP32_S2_ENC28J60](#7-UdpNTPClient-on-ESP32S2_DEV-with-ESP32_S2_ENC28J60)
 * [Debug](#debug)
 * [Troubleshooting](#troubleshooting)
 * [Releases](#releases)
@@ -103,7 +104,7 @@ Please also check these twin libraries
 1. [WebServer_WT32_ETH01](https://github.com/khoih-prog/WebServer_WT32_ETH01) for ESP32-based `WT32_ETH01` using `LwIP LAN8720`
 2. [WebServer_ESP32_ENC](https://github.com/khoih-prog/WebServer_ESP32_ENC) for ESP32-boards using `LwIP ENC28J60`
 3. [WebServer_ESP32_W5500](https://github.com/khoih-prog/WebServer_ESP32_W5500) for ESP32-boards using `LwIP W5500`
-3. [WebServer_ESP32_SC_W5500](https://github.com/khoih-prog/WebServer_ESP32_SC_W5500) for ESP32_S3-boards using `LwIP W5500`
+4. [WebServer_ESP32_SC_W5500](https://github.com/khoih-prog/WebServer_ESP32_SC_W5500) for ESP32_S3-boards using `LwIP W5500`
 
 ---
 
@@ -112,16 +113,25 @@ Please also check these twin libraries
 This [**WebServer_ESP32_SC_ENC** library](https://github.com/khoih-prog/WebServer_ESP32_SC_ENC) currently supports these following boards:
 
  1. **ESP32_S3 boards** using `LwIP ENC28J60 Ethernet`
+ 2. **ESP32_S2 boards** using `LwIP ENC28J60 Ethernet`
  
+ Hopefully the `ESP32_C3-based` boards will be supported in the near future to use `LwIP W5500 or ENC28J60 Ethernet`
 
- Hopefully the `ESP32_S2` and `ESP32_C3-based` boards will be supported in the near future to use `LwIP W5500 or ENC28J60 Ethernet`
- 
+
+
+#### ESP32S2_DEV
+
+<p align="center">
+    <img src="https://github.com/khoih-prog/WebServer_ESP32_SC_ENC/raw/main/pics/ESP32S3_DEV.png">
+</p> 
+
 
 #### ESP32S3_DEV
 
 <p align="center">
     <img src="https://github.com/khoih-prog/WebServer_ESP32_SC_ENC/raw/main/pics/ESP32S3_DEV.png">
 </p> 
+
 
 #### ENC28J60
 
@@ -254,7 +264,7 @@ Look in file [**adc_common.c**](https://github.com/espressif/esp-idf/blob/master
 ### Class Constructor
 
 ```cpp
-  WebServer server(80);
+WebServer server(80);
 ```
 
 Creates the `WebServer_ESP32_SC_ENC` class object.
@@ -409,7 +419,7 @@ size_t streamFile();
 ---
 ---
 
-### How to connect ENC28J60 to ESP32_S3
+### How to connect W5500 to ESP32_S2/S3
 
 You can change the `INT` pin to another one. Default is `GPIO4`
 
@@ -421,17 +431,19 @@ You can change the `INT` pin to another one. Default is `GPIO4`
 ---
 
 
-#### ESP32S3_DEV
-
-<p align="center">
-    <img src="https://github.com/khoih-prog/WebServer_ESP32_SC_ENC/raw/main/pics/ESP32S3_DEV.png">
-</p> 
-
 #### ENC28J60
 
 <p align="center">
     <img src="https://github.com/khoih-prog/WebServer_ESP32_SC_ENC/raw/main/pics/ENC28J60.png">
 </p>
+
+---
+
+#### ESP32S3_DEV
+
+<p align="center">
+    <img src="https://github.com/khoih-prog/WebServer_ESP32_SC_ENC/raw/main/pics/ESP32S3_DEV.png">
+</p> 
 
 
 |ENC28J60|<--->|ESP32_S3|
@@ -443,6 +455,28 @@ You can change the `INT` pin to another one. Default is `GPIO4`
 |INT|<--->|GPIO4|
 |GND|<--->|GND|
 |3.3V|<--->|3.3V|
+
+
+---
+
+#### ESP32S2_DEV
+
+<p align="center">
+    <img src="https://github.com/khoih-prog/WebServer_ESP32_SC_ENC/raw/main/pics/ESP32S2_DEV.png">
+</p> 
+
+
+|ENC28J60|<--->|ESP32_S2|
+|:-:|:-:|:-:|
+|MOSI|<--->|GPIO35|
+|MISO|<--->|GPIO37|
+|SCK|<--->|GPIO36|
+|SS|<--->|GPIO34|
+|INT|<--->|GPIO4|
+|RST|<--->|RST|
+|GND|<--->|GND|
+|3.3V|<--->|3.3V|
+
 
 
 ---
@@ -495,8 +529,9 @@ The following are debug terminal output and screen shot when running example [Ad
 
 ```cpp
 Start AdvancedWebServer on ESP32S3_DEV with ESP32_S3_ENC28J60
-WebServer_ESP32_SC_ENC v1.0.0 for core v2.0.0+
+WebServer_ESP32_SC_ENC v1.1.0 for core v2.0.0+
 [EWS] Default SPI pinout:
+[EWS] SPI_HOST: 1
 [EWS] MOSI: 11
 [EWS] MISO: 13
 [EWS] SCK: 12
@@ -521,8 +556,9 @@ The terminal output of **ESP32S3_DEV with ENC28J60** running [MQTT_ThingStream e
 
 ```cpp
 Start MQTT_ThingStream on ESP32S3_DEV with ESP32_S3_ENC28J60
-WebServer_ESP32_SC_ENC v1.0.0 for core v2.0.0+
+WebServer_ESP32_SC_ENC v1.1.0 for core v2.0.0+
 [EWS] Default SPI pinout:
+[EWS] SPI_HOST: 1
 [EWS] MOSI: 11
 [EWS] MISO: 13
 [EWS] SCK: 12
@@ -559,8 +595,9 @@ The terminal output of **ESP32S3_DEV with ENC28J60** running [MQTTClient_Auth ex
 
 ```cpp
 Start MQTTClient_Auth on ESP32S3_DEV with ESP32_S3_ENC28J60
-WebServer_ESP32_SC_ENC v1.0.0 for core v2.0.0+
+WebServer_ESP32_SC_ENC v1.1.0 for core v2.0.0+
 [EWS] Default SPI pinout:
+[EWS] SPI_HOST: 1
 [EWS] MOSI: 11
 [EWS] MISO: 13
 [EWS] SCK: 12
@@ -572,7 +609,7 @@ WebServer_ESP32_SC_ENC v1.0.0 for core v2.0.0+
 ETH Started
 ETH Connected
 ETH MAC: DE:AD:BE:EF:BE:0E, IPv4: 192.168.2.106
-FULL_DUPLEX, 100Mbps
+FULL_DUPLEX, 10Mbps
 Message Send : MQTT_Pub => Hello from MQTTClient_Auth on ESP32S3_DEV with ESP32_S3_ENC28J60
 Message arrived [MQTT_Pub] Hello from MQTTClient_Auth on ESP32S3_DEV with ESP32_S3_ENC28J60
 Message Send : MQTT_Pub => Hello from MQTTClient_Auth on ESP32S3_DEV with ESP32_S3_ENC28J60
@@ -587,8 +624,9 @@ The terminal output of **ESP32S3_DEV with ENC28J60** running [MQTTClient_Basic e
 
 ```cpp
 Start MQTTClient_Basic on ESP32S3_DEV with ESP32_S3_ENC28J60
-WebServer_ESP32_SC_ENC v1.0.0 for core v2.0.0+
+WebServer_ESP32_SC_ENC v1.1.0 for core v2.0.0+
 [EWS] Default SPI pinout:
+[EWS] SPI_HOST: 1
 [EWS] MOSI: 11
 [EWS] MISO: 13
 [EWS] SCK: 12
@@ -600,7 +638,7 @@ WebServer_ESP32_SC_ENC v1.0.0 for core v2.0.0+
 ETH Started
 ETH Connected
 ETH MAC: DE:AD:BE:EF:BE:0E, IPv4: 192.168.2.106
-FULL_DUPLEX, 100Mbps
+FULL_DUPLEX, 10Mbps
 Message Send : MQTT_Pub => Hello from MQTTClient_Basic on ESP32S3_DEV with ESP32_S3_ENC28J60
 Message arrived [MQTT_Pub] Hello from MQTTClient_Basic on ESP32S3_DEV with ESP32_S3_ENC28J60
 Message Send : MQTT_Pub => Hello from MQTTClient_Basic on ESP32S3_DEV with ESP32_S3_ENC28J60
@@ -616,8 +654,9 @@ The terminal output of **ESP32S3_DEV with ENC28J60** running [WebClient example]
 
 ```cpp
 Start WebClient on ESP32S3_DEV with ESP32_S3_ENC28J60
-WebServer_ESP32_SC_ENC v1.0.0 for core v2.0.0+
+WebServer_ESP32_SC_ENC v1.1.0 for core v2.0.0+
 [EWS] Default SPI pinout:
+[EWS] SPI_HOST: 1
 [EWS] MOSI: 11
 [EWS] MISO: 13
 [EWS] SCK: 12
@@ -629,7 +668,7 @@ WebServer_ESP32_SC_ENC v1.0.0 for core v2.0.0+
 ETH Started
 ETH Connected
 ETH MAC: DE:AD:BE:EF:BE:0A, IPv4: 192.168.2.98
-FULL_DUPLEX, 100Mbps
+FULL_DUPLEX, 10Mbps
 
 Starting connection to server...
 Connected to server
@@ -701,8 +740,9 @@ The terminal output of **ESP32S3_DEV with ENC28J60** running [UDPSendReceive exa
 
 ```cpp
 Start UDPSendReceive on ESP32S3_DEV with ESP32_S3_ENC28J60
-WebServer_ESP32_SC_ENC v1.0.0 for core v2.0.0+
+WebServer_ESP32_SC_ENC v1.1.0 for core v2.0.0+
 [EWS] Default SPI pinout:
+[EWS] SPI_HOST: 1
 [EWS] MOSI: 11
 [EWS] MISO: 13
 [EWS] SCK: 12
@@ -720,20 +760,55 @@ Starting connection to server...
 Listening on port 2390
 UDP Packet received, size 48
 From 132.163.97.3, port 123
-Seconds since Jan 1 1900 = 3880030042
-Unix time = 1671041242
-The UTC time is 18:07:22
+Seconds since Jan 1 1900 = 3880480438
+Unix time = 1671491638
+The UTC time is 23:13:58
 UDP Packet received, size 48
 From 132.163.97.3, port 123
-Seconds since Jan 1 1900 = 3880030054
-Unix time = 1671041254
-The UTC time is 18:07:34
-UDP Packet received, size 48
-From 132.163.97.3, port 123
-Seconds since Jan 1 1900 = 3880030066
-Unix time = 1671041266
-The UTC time is 18:07:46
+Seconds since Jan 1 1900 = 3880480450
+Unix time = 1671491650
+The UTC time is 23:14:10
 ```
+
+
+---
+
+#### 7. UdpNTPClient on ESP32S2_DEV with ESP32_S2_ENC28J60
+
+The terminal output of **ESP32S2_DEV with ENC28J60** running [UdpNTPClient example](examples/UdpNTPClient). The `built-in MAC address` is used now instead of user-defined one.
+
+
+
+```cpp
+Start UdpNTPClient on ESP32S2_DEV with ESP32_S2_ENC28J60
+WebServer_ESP32_SC_ENC v1.1.0 for core v2.0.0+
+[EWS] Default SPI pinout:
+[EWS] SPI_HOST: 1
+[EWS] MOSI: 35
+[EWS] MISO: 37
+[EWS] SCK: 36
+[EWS] CS: 34
+[EWS] INT: 4
+[EWS] SPI Clock (MHz): 8
+[EWS] =========================
+Using built-in mac_eth = 7E:DF:A1:08:64:27
+
+ETH Started
+ETH Connected
+ETH MAC: 7E:DF:A1:08:64:27, IPv4: 192.168.2.232
+FULL_DUPLEX, 10Mbps
+UDP Packet received, size 48
+From 132.163.97.3, port 123
+Seconds since Jan 1 1900 = 3880480414
+Unix time = 1671491614
+The UTC time is 23:13:34
+UDP Packet received, size 48
+From 132.163.97.3, port 123
+Seconds since Jan 1 1900 = 3880480426
+Unix time = 1671491626
+The UTC time is 23:13:46
+```
+
 
 ---
 ---
@@ -769,12 +844,13 @@ Submit issues to: [WebServer_ESP32_SC_ENC issues](https://github.com/khoih-prog/
 ### TO DO
 
 1. Bug Searching and Killing
-2. Add support to **ESP32_S2 and ESP32_C3-based boards** using `LwIP W5500 Ethernet`
-3. Add support to **ESP32_S2 and ESP32_C3-based boards** using `LwIP ENC28J60 Ethernet`
+2. Add support to **ESP32_C3-based boards** using `LwIP W5500 or ENC28J60 Ethernet`
+
 
 ### DONE
 
  1. Add support to **ESP32S3-based boards** using `LwIP ENC28J60 Ethernet`
+ 2. Add support to **ESP32S2-based boards** using `LwIP ENC28J60 Ethernet`
 
 ---
 ---

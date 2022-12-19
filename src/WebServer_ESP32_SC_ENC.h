@@ -13,7 +13,8 @@
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
-  1.0.0   K Hoang      13/12/2022 Initial coding for ESP32_S3_ENC (ESP32_S3 + ENC28J60)
+  1.0.0   K Hoang      13/12/2022 Initial coding for ESP32_S3_ENC (ESP32_S3 + LwIP ENC28J60)
+  1.1.0   K Hoang      19/12/2022 Add support to ESP32_S2_ENC (ESP32_S2 + LwIP ENC28J60)
  *****************************************************************************************************************************/
 
 #pragma once
@@ -30,22 +31,22 @@
     #warning Using code for ESP32 core v2.0.0+ in WebServer_ESP32_SC_ENC.h
   #endif
 
-  #define WEBSERVER_ESP32_SC_ENC_VERSION       "WebServer_ESP32_SC_ENC v1.0.0 for core v2.0.0+"
+  #define WEBSERVER_ESP32_SC_ENC_VERSION       "WebServer_ESP32_SC_ENC v1.1.0 for core v2.0.0+"
 #else
   #if (_ETHERNET_WEBSERVER_LOGLEVEL_ > 2)
     #warning Using code for ESP32 core v1.0.6- in WebServer_ESP32_SC_ENC.h
   #endif
 
-  #define WEBSERVER_ESP32_SC_ENC_VERSION       "WebServer_ESP32_SC_ENC v1.0.0 for core v1.0.6-"
+  #define WEBSERVER_ESP32_SC_ENC_VERSION       "WebServer_ESP32_SC_ENC v1.1.0 for core v1.0.6-"
 #endif
 
 //////////////////////////////////////////////////////////////
 
 #define WEBSERVER_ESP32_SC_ENC_VERSION_MAJOR    1
-#define WEBSERVER_ESP32_SC_ENC_VERSION_MINOR    0
+#define WEBSERVER_ESP32_SC_ENC_VERSION_MINOR    1
 #define WEBSERVER_ESP32_SC_ENC_VERSION_PATCH    0
 
-#define WEBSERVER_ESP32_SC_ENC_VERSION_INT      1000000
+#define WEBSERVER_ESP32_SC_ENC_VERSION_INT      1001000
 
 /////////////////////////////////////////////////////////////
 

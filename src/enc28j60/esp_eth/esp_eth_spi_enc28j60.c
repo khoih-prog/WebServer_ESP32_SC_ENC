@@ -13,7 +13,8 @@
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
-  1.0.0   K Hoang      13/12/2022 Initial coding for ESP32_S3_ENC (ESP32_S3 + ENC28J60)
+  1.0.0   K Hoang      13/12/2022 Initial coding for ESP32_S3_ENC (ESP32_S3 + LwIP ENC28J60)
+  1.1.0   K Hoang      19/12/2022 Add support to ESP32_S2_ENC (ESP32_S2 + LwIP ENC28J60)
  *****************************************************************************************************************************/
 
 #include <stdio.h>
@@ -47,7 +48,7 @@ esp_eth_mac_t* enc28j60_new_mac( spi_device_handle_t *spi_handle, int INT_GPIO )
 ////////////////////////////////////////
 
 esp_eth_mac_t* enc28j60_begin(int MISO_GPIO, int MOSI_GPIO, int SCLK_GPIO, int CS_GPIO, int INT_GPIO, int SPI_CLOCK_MHZ,
-                              int SPI_HOST)
+                              int SPIHOST)
 {
   if (ESP_OK != gpio_install_isr_service(0))
     return NULL;
@@ -62,7 +63,7 @@ esp_eth_mac_t* enc28j60_begin(int MISO_GPIO, int MOSI_GPIO, int SCLK_GPIO, int C
     .quadhd_io_num = -1,
   };
 
-  if ( ESP_OK != spi_bus_initialize( SPI_HOST, &buscfg, SPI_DMA_CH_AUTO ))
+  if ( ESP_OK != spi_bus_initialize( SPIHOST, &buscfg, SPI_DMA_CH_AUTO ))
     return NULL;
 
   spi_device_interface_config_t devcfg =
@@ -78,7 +79,7 @@ esp_eth_mac_t* enc28j60_begin(int MISO_GPIO, int MOSI_GPIO, int SCLK_GPIO, int C
 
   spi_device_handle_t spi_handle = NULL;
 
-  if (ESP_OK != spi_bus_add_device( SPI_HOST, &devcfg, &spi_handle ))
+  if (ESP_OK != spi_bus_add_device( SPIHOST, &devcfg, &spi_handle ))
     return NULL;
 
   return enc28j60_new_mac( &spi_handle, INT_GPIO );

@@ -13,7 +13,8 @@
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
-  1.0.0   K Hoang      13/12/2022 Initial coding for ESP32_S3_ENC (ESP32_S3 + ENC28J60)
+  1.0.0   K Hoang      13/12/2022 Initial coding for ESP32_S3_ENC (ESP32_S3 + LwIP ENC28J60)
+  1.1.0   K Hoang      19/12/2022 Add support to ESP32_S2_ENC (ESP32_S2 + LwIP ENC28J60)
  *****************************************************************************************************************************/
 /*
   Based on ETH.h from arduino-esp32 and esp-idf
@@ -113,7 +114,6 @@ bool ESP32_ENC::begin(int MISO, int MOSI, int SCLK, int CS, int INT, int SPICLOC
   esp_netif_config_t cfg = ESP_NETIF_DEFAULT_ETH();
   esp_netif_t *eth_netif = esp_netif_new(&cfg);
 
-  //esp_eth_mac_t *eth_mac = enc28j60_begin(MISO_GPIO, MOSI_GPIO, SCLK_GPIO, CS_GPIO, INT_GPIO, SPICLOCK_MHZ, SPI_HOST);
   esp_eth_mac_t *eth_mac = enc28j60_begin(MISO, MOSI, SCLK, CS, INT, SPICLOCK_MHZ, SPIHOST);
 
   if (eth_mac == NULL)
@@ -145,7 +145,11 @@ bool ESP32_ENC::begin(int MISO, int MOSI, int SCLK, int CS, int INT, int SPICLOC
     return false;
   }
 
+#if USING_ESP32_S3
   eth_mac->set_addr(eth_mac, ENC28J60_Mac);
+#else
+  eth_mac->set_addr(eth_mac, mac_eth);
+#endif
 
   if (emac_enc28j60_get_chip_info(eth_mac) < ENC28J60_REV_B5 && SPICLOCK_MHZ < 8)
   {

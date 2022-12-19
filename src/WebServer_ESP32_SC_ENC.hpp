@@ -13,7 +13,8 @@
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
-  1.0.0   K Hoang      13/12/2022 Initial coding for ESP32_S3_ENC (ESP32_S3 + ENC28J60)
+  1.0.0   K Hoang      13/12/2022 Initial coding for ESP32_S3_ENC (ESP32_S3 + LwIP ENC28J60)
+  1.1.0   K Hoang      19/12/2022 Add support to ESP32_S2_ENC (ESP32_S2 + LwIP ENC28J60)
  *****************************************************************************************************************************/
 
 #pragma once
@@ -36,9 +37,7 @@
   #ifndef SHIELD_TYPE
   	#define SHIELD_TYPE         "ESP32_S2_ENC28J60"
 	#endif
-  
-  #error ESP32_S2 not supported yet. Please use EthernetWebServer
-  
+   
 #elif ( ARDUINO_ESP32C3_DEV )
 	#if (_ETHERNET_WEBSERVER_LOGLEVEL_ > 3)
 		#if ( defined(ESP_ARDUINO_VERSION_MAJOR) && (ESP_ARDUINO_VERSION_MAJOR >= 2) )
@@ -84,35 +83,107 @@
 #include <WiFi.h>
 #include <WebServer.h>
 
+#include <hal/spi_types.h>
+
 //////////////////////////////////////////////////////////////
 
-#if !defined(SPI_HOST)
-  #define SPI_HOST            1
+#if USING_ESP32_S3
+
+	#if !defined(ETH_SPI_HOST)
+		#define ETH_SPI_HOST            SPI2_HOST
+	#endif
+
+	#if !defined(SPI_CLOCK_MHZ)
+		#define SPI_CLOCK_MHZ       8
+	#endif
+
+	#if !defined(INT_GPIO)
+		#define INT_GPIO            4
+	#endif
+
+	#if !defined(MISO_GPIO)
+		#define MISO_GPIO           13
+	#endif
+
+	#if !defined(MOSI_GPIO)
+		#define MOSI_GPIO           11
+	#endif
+
+	#if !defined(SCK_GPIO)
+		#define SCK_GPIO            12
+	#endif
+
+	#if !defined(CS_GPIO)
+		#define CS_GPIO             10
+	#endif
+
+//////////////////////////////////////////////////////////////
+
+#elif USING_ESP32_S2
+
+	#if !defined(ETH_SPI_HOST)
+		#define ETH_SPI_HOST            1		//SPI2_HOST
+	#endif
+
+	#if !defined(SPI_CLOCK_MHZ)
+		#define SPI_CLOCK_MHZ       8
+	#endif
+
+	#if !defined(INT_GPIO)
+		#define INT_GPIO            4
+	#endif
+
+	#if !defined(MISO_GPIO)
+		#define MISO_GPIO           37
+	#endif
+
+	#if !defined(MOSI_GPIO)
+		#define MOSI_GPIO           35
+	#endif
+
+	#if !defined(SCK_GPIO)
+		#define SCK_GPIO            36
+	#endif
+
+	#if !defined(CS_GPIO)
+		#define CS_GPIO             34
+	#endif
+
+//////////////////////////////////////////////////////////////
+
+#elif USING_ESP32_C3
+
+	#if !defined(ETH_SPI_HOST)
+		#define ETH_SPI_HOST            SPI2_HOST
+	#endif
+
+	#if !defined(SPI_CLOCK_MHZ)
+		#define SPI_CLOCK_MHZ       8
+	#endif
+
+	#if !defined(INT_GPIO)
+		#define INT_GPIO            4
+	#endif
+
+	#if !defined(MISO_GPIO)
+		#define MISO_GPIO           5
+	#endif
+
+	#if !defined(MOSI_GPIO)
+		#define MOSI_GPIO           6
+	#endif
+
+	#if !defined(SCK_GPIO)
+		#define SCK_GPIO            
+	#endif
+
+	#if !defined(CS_GPIO)
+		#define CS_GPIO             7
+	#endif
+	
 #endif
 
-#if !defined(SPI_CLOCK_MHZ)
-  #define SPI_CLOCK_MHZ       8
-#endif
-
-#if !defined(INT_GPIO)
-  #define INT_GPIO            4
-#endif
-
-#if !defined(MISO_GPIO)
-  #define MISO_GPIO           13
-#endif
-
-#if !defined(MOSI_GPIO)
-  #define MOSI_GPIO           11
-#endif
-
-#if !defined(SCK_GPIO)
-  #define SCK_GPIO            12
-#endif
-
-#if !defined(CS_GPIO)
-  #define CS_GPIO             10
-#endif
+//////////////////////////////////////////////////////////////
 
 #ifndef SHIELD_TYPE
   #define SHIELD_TYPE         "ESP32_ENC28J60"
