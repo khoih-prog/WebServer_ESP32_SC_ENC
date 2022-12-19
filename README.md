@@ -122,7 +122,7 @@ This [**WebServer_ESP32_SC_ENC** library](https://github.com/khoih-prog/WebServe
 #### ESP32S2_DEV
 
 <p align="center">
-    <img src="https://github.com/khoih-prog/WebServer_ESP32_SC_ENC/raw/main/pics/ESP32S3_DEV.png">
+    <img src="https://github.com/khoih-prog/WebServer_ESP32_SC_ENC/raw/main/pics/ESP32S2_DEV.png">
 </p> 
 
 
@@ -419,7 +419,7 @@ size_t streamFile();
 ---
 ---
 
-### How to connect W5500 to ESP32_S2/S3
+### How to connect ENC28J60 to ESP32_S2/S3
 
 You can change the `INT` pin to another one. Default is `GPIO4`
 
