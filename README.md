@@ -576,7 +576,7 @@ The following are debug terminal output and screen shot when running example [Ad
 
 ```cpp
 Start AdvancedWebServer on ESP32S3_DEV with ESP32_S3_ENC28J60
-WebServer_ESP32_SC_ENC v1.1.0 for core v2.0.0+
+WebServer_ESP32_SC_ENC v1.2.0 for core v2.0.0+
 [EWS] Default SPI pinout:
 [EWS] SPI_HOST: 1
 [EWS] MOSI: 11
@@ -603,7 +603,7 @@ The terminal output of **ESP32S3_DEV with ENC28J60** running [MQTT_ThingStream e
 
 ```cpp
 Start MQTT_ThingStream on ESP32S3_DEV with ESP32_S3_ENC28J60
-WebServer_ESP32_SC_ENC v1.1.0 for core v2.0.0+
+WebServer_ESP32_SC_ENC v1.2.0 for core v2.0.0+
 [EWS] Default SPI pinout:
 [EWS] SPI_HOST: 1
 [EWS] MOSI: 11
@@ -642,7 +642,7 @@ The terminal output of **ESP32S3_DEV with ENC28J60** running [MQTTClient_Auth ex
 
 ```cpp
 Start MQTTClient_Auth on ESP32S3_DEV with ESP32_S3_ENC28J60
-WebServer_ESP32_SC_ENC v1.1.0 for core v2.0.0+
+WebServer_ESP32_SC_ENC v1.2.0 for core v2.0.0+
 [EWS] Default SPI pinout:
 [EWS] SPI_HOST: 1
 [EWS] MOSI: 11
@@ -671,7 +671,7 @@ The terminal output of **ESP32S3_DEV with ENC28J60** running [MQTTClient_Basic e
 
 ```cpp
 Start MQTTClient_Basic on ESP32S3_DEV with ESP32_S3_ENC28J60
-WebServer_ESP32_SC_ENC v1.1.0 for core v2.0.0+
+WebServer_ESP32_SC_ENC v1.2.0 for core v2.0.0+
 [EWS] Default SPI pinout:
 [EWS] SPI_HOST: 1
 [EWS] MOSI: 11
@@ -701,7 +701,7 @@ The terminal output of **ESP32S3_DEV with ENC28J60** running [WebClient example]
 
 ```cpp
 Start WebClient on ESP32S3_DEV with ESP32_S3_ENC28J60
-WebServer_ESP32_SC_ENC v1.1.0 for core v2.0.0+
+WebServer_ESP32_SC_ENC v1.2.0 for core v2.0.0+
 [EWS] Default SPI pinout:
 [EWS] SPI_HOST: 1
 [EWS] MOSI: 11
@@ -787,7 +787,7 @@ The terminal output of **ESP32S3_DEV with ENC28J60** running [UDPSendReceive exa
 
 ```cpp
 Start UDPSendReceive on ESP32S3_DEV with ESP32_S3_ENC28J60
-WebServer_ESP32_SC_ENC v1.1.0 for core v2.0.0+
+WebServer_ESP32_SC_ENC v1.2.0 for core v2.0.0+
 [EWS] Default SPI pinout:
 [EWS] SPI_HOST: 1
 [EWS] MOSI: 11
@@ -806,15 +806,15 @@ FULL_DUPLEX, 10Mbps
 Starting connection to server...
 Listening on port 2390
 UDP Packet received, size 48
-From 132.163.97.3, port 123
-Seconds since Jan 1 1900 = 3880480438
-Unix time = 1671491638
-The UTC time is 23:13:58
+From 132.163.97.6, port 123
+Seconds since Jan 1 1900 = 3880554037
+Unix time = 1671565237
+The UTC time is 19:40:37
 UDP Packet received, size 48
-From 132.163.97.3, port 123
-Seconds since Jan 1 1900 = 3880480450
-Unix time = 1671491650
-The UTC time is 23:14:10
+From 132.163.97.6, port 123
+Seconds since Jan 1 1900 = 3880554062
+Unix time = 1671565262
+The UTC time is 19:41:02
 ```
 
 
@@ -828,7 +828,7 @@ The terminal output of **ESP32S2_DEV with ENC28J60** running [UdpNTPClient examp
 
 ```cpp
 Start UdpNTPClient on ESP32S2_DEV with ESP32_S2_ENC28J60
-WebServer_ESP32_SC_ENC v1.1.0 for core v2.0.0+
+WebServer_ESP32_SC_ENC v1.2.0 for core v2.0.0+
 [EWS] Default SPI pinout:
 [EWS] SPI_HOST: 1
 [EWS] MOSI: 35
@@ -845,22 +845,22 @@ ETH Connected
 ETH MAC: 7E:DF:A1:08:64:27, IPv4: 192.168.2.232
 FULL_DUPLEX, 10Mbps
 UDP Packet received, size 48
-From 132.163.97.3, port 123
-Seconds since Jan 1 1900 = 3880480414
-Unix time = 1671491614
-The UTC time is 23:13:34
+From 132.163.97.2, port 123
+Seconds since Jan 1 1900 = 3880554146
+Unix time = 1671565346
+The UTC time is 19:42:26
 UDP Packet received, size 48
-From 132.163.97.3, port 123
-Seconds since Jan 1 1900 = 3880480426
-Unix time = 1671491626
-The UTC time is 23:13:46
+From 132.163.97.2, port 123
+Seconds since Jan 1 1900 = 3880554170
+Unix time = 1671565370
+The UTC time is 19:42:50
 ```
 
 ---
 
 #### 8. UdpNTPClient on ESP32C3_DEV with ESP32_C3_ENC28J60
 
-The terminal output of **ESP32S2_DEV with ENC28J60** running [UdpNTPClient example](examples/UdpNTPClient). The `built-in MAC address` is used now instead of user-defined one.
+The terminal output of **ESP32C3_DEV with ENC28J60** running [UdpNTPClient example](examples/UdpNTPClient). The `built-in MAC address` is used now instead of user-defined one.
 
 
 
