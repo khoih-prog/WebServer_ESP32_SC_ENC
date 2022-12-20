@@ -1,20 +1,21 @@
 /****************************************************************************************************************************
   WebServer_ESP32_SC_ENC.h
   
-  For Ethernet shields using ESP32_SC_ENC (ESP32_S2/3, ESP32_C3 + LwIP ENC28J60)
+  For Ethernet shields using ESP32_SC_ENC (ESP32_S2/S3/C3 + LwIP ENC28J60)
 
-  WebServer_ESP32_SC_ENC28J60 is a library for the ESP32_S2/3, ESP32_C3 with LwIP Ethernet ENC28J60
+  WebServer_ESP32_SC_ENC28J60 is a library for the ESP32_S2/S3/C3 with LwIP Ethernet ENC28J60
 
   Based on and modified from ESP8266 https://github.com/esp8266/Arduino/releases
   Built by Khoi Hoang https://github.com/khoih-prog/WebServer_ESP32_SC_ENC
   Licensed under GPLv3 license
 
-  Version: 1.0.0
+  Version: 1.2.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      13/12/2022 Initial coding for ESP32_S3_ENC (ESP32_S3 + LwIP ENC28J60)
   1.1.0   K Hoang      19/12/2022 Add support to ESP32_S2_ENC (ESP32_S2 + LwIP ENC28J60)
+  1.2.0   K Hoang      20/12/2022 Add support to ESP32_C3_ENC (ESP32_C3 + LwIP ENC28J60)
  *****************************************************************************************************************************/
 
 #pragma once
@@ -54,9 +55,7 @@
   #ifndef SHIELD_TYPE
   	#define SHIELD_TYPE         "ESP32_C3_ENC28J60"
 	#endif
-  
-  #error ESP32_C3 not supported yet
-  
+   
 #elif ( defined(ARDUINO_ESP32S3_DEV) || defined(ARDUINO_ESP32_S3_BOX) || defined(ARDUINO_TINYS3) || \
         defined(ARDUINO_PROS3) || defined(ARDUINO_FEATHERS3) )
   #if (_ETHERNET_WEBSERVER_LOGLEVEL_ > 3)
@@ -90,7 +89,7 @@
 #if USING_ESP32_S3
 
 	#if !defined(ETH_SPI_HOST)
-		#define ETH_SPI_HOST            SPI2_HOST
+		#define ETH_SPI_HOST				SPI2_HOST
 	#endif
 
 	#if !defined(SPI_CLOCK_MHZ)
@@ -122,7 +121,7 @@
 #elif USING_ESP32_S2
 
 	#if !defined(ETH_SPI_HOST)
-		#define ETH_SPI_HOST            1		//SPI2_HOST
+		#define ETH_SPI_HOST				SPI2_HOST
 	#endif
 
 	#if !defined(SPI_CLOCK_MHZ)
@@ -154,7 +153,7 @@
 #elif USING_ESP32_C3
 
 	#if !defined(ETH_SPI_HOST)
-		#define ETH_SPI_HOST            SPI2_HOST
+		#define ETH_SPI_HOST				SPI2_HOST
 	#endif
 
 	#if !defined(SPI_CLOCK_MHZ)
@@ -162,7 +161,7 @@
 	#endif
 
 	#if !defined(INT_GPIO)
-		#define INT_GPIO            4
+		#define INT_GPIO            10
 	#endif
 
 	#if !defined(MISO_GPIO)
@@ -174,7 +173,7 @@
 	#endif
 
 	#if !defined(SCK_GPIO)
-		#define SCK_GPIO            
+		#define SCK_GPIO        		4    
 	#endif
 
 	#if !defined(CS_GPIO)
