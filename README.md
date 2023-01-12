@@ -824,7 +824,7 @@ Disconnecting from server...
 
 #### 6. UDPSendReceive on ESP32S3_DEV with ESP32_S3_ENC28J60
 
-The terminal output of **ESP32S3_DEV with ENC28J60** running [UDPSendReceive example](examples/UDPSendReceive). The `user-defined MAC address` is automatically used now because there is no `built-in MAC address` in ESP32_S3
+The terminal output of **ESP32S3_DEV with ENC28J60** running [UdpSendReceive example](examples/UdpSendReceive). The `user-defined MAC address` is automatically used now because there is no `built-in MAC address` in ESP32_S3
 
 ```cpp
 Start UDPSendReceive on ESP32S3_DEV with ESP32_S3_ENC28J60
