@@ -9,13 +9,14 @@
   Built by Khoi Hoang https://github.com/khoih-prog/WebServer_ESP32_SC_ENC
   Licensed under GPLv3 license
 
-  Version: 1.2.0
+  Version: 1.2.1
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      13/12/2022 Initial coding for ESP32_S3_ENC (ESP32_S3 + LwIP ENC28J60)
   1.1.0   K Hoang      19/12/2022 Add support to ESP32_S2_ENC (ESP32_S2 + LwIP ENC28J60)
   1.2.0   K Hoang      20/12/2022 Add support to ESP32_C3_ENC (ESP32_C3 + LwIP ENC28J60)
+  1.2.1   K Hoang      11/01/2023 Increase default SPI clock to 20MHz from 8MHz
  *****************************************************************************************************************************/
 
 // Copyright 2019 Espressif Systems (Shanghai) PTE LTD
@@ -42,7 +43,12 @@
 #include "freertos/task.h"
 #include "driver/gpio.h"
 
+////////////////////////////////////////
+
 static const char *TAG = "enc28j60";
+
+////////////////////////////////////////
+
 #define PHY_CHECK(a, str, goto_tag, ...)                                          \
     do                                                                            \
     {                                                                             \
@@ -52,6 +58,8 @@ static const char *TAG = "enc28j60";
             goto goto_tag;                                                        \
         }                                                                         \
     } while (0)
+
+////////////////////////////////////////
 
 /***************Vendor Specific Register***************/
 
@@ -73,7 +81,12 @@ typedef union
   };
   uint32_t val;
 } phcon1_reg_t;
+
+////////////////////////////////////////
+
 #define ETH_PHY_PHCON1_REG_ADDR (0x00)
+
+////////////////////////////////////////
 
 /**
    @brief PHCON2(PHY Control Register 2)
@@ -94,7 +107,12 @@ typedef union
   };
   uint32_t val;
 } phcon2_reg_t;
+
+////////////////////////////////////////
+
 #define ETH_PHY_PHCON2_REG_ADDR (0x10)
+
+////////////////////////////////////////
 
 /**
    @brief PHSTAT2(PHY Status Register 2)
@@ -116,7 +134,12 @@ typedef union
   };
   uint32_t val;
 } phstat2_reg_t;
+
+////////////////////////////////////////
+
 #define ETH_PHY_PHSTAT2_REG_ADDR (0x11)
+
+////////////////////////////////////////
 
 typedef struct
 {
@@ -128,12 +151,15 @@ typedef struct
   int reset_gpio_num;
 } phy_enc28j60_t;
 
+////////////////////////////////////////
+
 static esp_err_t enc28j60_update_link_duplex_speed(phy_enc28j60_t *enc28j60)
 {
   esp_eth_mediator_t *eth = enc28j60->eth;
   eth_speed_t speed = ETH_SPEED_10M; // enc28j60 speed is fixed to 10Mbps
   eth_duplex_t duplex = ETH_DUPLEX_HALF;
   phstat2_reg_t phstat;
+  
   PHY_CHECK(eth->phy_reg_read(eth, enc28j60->addr, ETH_PHY_PHSTAT2_REG_ADDR, &(phstat.val)) == ESP_OK,
             "read PHSTAT2 failed", err);
   eth_link_t link = phstat.lstat ? ETH_LINK_UP : ETH_LINK_DOWN;
@@ -165,9 +191,12 @@ static esp_err_t enc28j60_update_link_duplex_speed(phy_enc28j60_t *enc28j60)
   }
 
   return ESP_OK;
+  
 err:
   return ESP_FAIL;
 }
+
+////////////////////////////////////////
 
 static esp_err_t enc28j60_set_mediator(esp_eth_phy_t *phy, esp_eth_mediator_t *eth)
 {
@@ -175,9 +204,12 @@ static esp_err_t enc28j60_set_mediator(esp_eth_phy_t *phy, esp_eth_mediator_t *e
   phy_enc28j60_t *enc28j60 = __containerof(phy, phy_enc28j60_t, parent);
   enc28j60->eth = eth;
   return ESP_OK;
+  
 err:
   return ESP_ERR_INVALID_ARG;
 }
+
+////////////////////////////////////////
 
 static esp_err_t enc28j60_get_link(esp_eth_phy_t *phy)
 {
@@ -185,9 +217,12 @@ static esp_err_t enc28j60_get_link(esp_eth_phy_t *phy)
   /* Updata information about link, speed, duplex */
   PHY_CHECK(enc28j60_update_link_duplex_speed(enc28j60) == ESP_OK, "update link duplex speed failed", err);
   return ESP_OK;
+  
 err:
   return ESP_FAIL;
 }
+
+////////////////////////////////////////
 
 static esp_err_t enc28j60_reset(esp_eth_phy_t *phy)
 {
@@ -197,6 +232,7 @@ static esp_err_t enc28j60_reset(esp_eth_phy_t *phy)
   bmcr_reg_t bmcr = {.reset = 1};
   PHY_CHECK(eth->phy_reg_write(eth, enc28j60->addr, ETH_PHY_BMCR_REG_ADDR, bmcr.val) == ESP_OK,
             "write BMCR failed", err);
+            
   /* Wait for reset complete */
   uint32_t to = 0;
 
@@ -214,9 +250,12 @@ static esp_err_t enc28j60_reset(esp_eth_phy_t *phy)
 
   PHY_CHECK(to < enc28j60->reset_timeout_ms / 10, "PHY reset timeout", err);
   return ESP_OK;
+  
 err:
   return ESP_FAIL;
 }
+
+////////////////////////////////////////
 
 static esp_err_t enc28j60_reset_hw(esp_eth_phy_t *phy)
 {
@@ -234,6 +273,8 @@ static esp_err_t enc28j60_reset_hw(esp_eth_phy_t *phy)
   return ESP_OK;
 }
 
+////////////////////////////////////////
+
 static esp_err_t enc28j60_negotiate(esp_eth_phy_t *phy)
 {
   /**
@@ -247,9 +288,12 @@ static esp_err_t enc28j60_negotiate(esp_eth_phy_t *phy)
   /* Updata information about link, speed, duplex */
   PHY_CHECK(enc28j60_update_link_duplex_speed(enc28j60) == ESP_OK, "update link duplex speed failed", err);
   return ESP_OK;
+  
 err:
   return ESP_FAIL;
 }
+
+////////////////////////////////////////
 
 esp_err_t enc28j60_set_phy_duplex(esp_eth_phy_t *phy, eth_duplex_t duplex)
 {
@@ -280,15 +324,19 @@ esp_err_t enc28j60_set_phy_duplex(esp_eth_phy_t *phy, eth_duplex_t duplex)
 
   PHY_CHECK(enc28j60_update_link_duplex_speed(enc28j60) == ESP_OK, "update link duplex speed failed", err);
   return ESP_OK;
+  
 err:
   return ESP_FAIL;
 }
+
+////////////////////////////////////////
 
 static esp_err_t enc28j60_pwrctl(esp_eth_phy_t *phy, bool enable)
 {
   phy_enc28j60_t *enc28j60 = __containerof(phy, phy_enc28j60_t, parent);
   esp_eth_mediator_t *eth = enc28j60->eth;
   bmcr_reg_t bmcr;
+  
   PHY_CHECK(eth->phy_reg_read(eth, enc28j60->addr, ETH_PHY_BMCR_REG_ADDR, &(bmcr.val)) == ESP_OK,
             "read BMCR failed", err);
 
@@ -318,16 +366,22 @@ static esp_err_t enc28j60_pwrctl(esp_eth_phy_t *phy, bool enable)
   }
 
   return ESP_OK;
+  
 err:
   return ESP_FAIL;
 }
+
+////////////////////////////////////////
 
 static esp_err_t enc28j60_set_addr(esp_eth_phy_t *phy, uint32_t addr)
 {
   phy_enc28j60_t *enc28j60 = __containerof(phy, phy_enc28j60_t, parent);
   enc28j60->addr = addr;
+  
   return ESP_OK;
 }
+
+////////////////////////////////////////
 
 static esp_err_t enc28j60_get_addr(esp_eth_phy_t *phy, uint32_t *addr)
 {
@@ -335,21 +389,28 @@ static esp_err_t enc28j60_get_addr(esp_eth_phy_t *phy, uint32_t *addr)
   phy_enc28j60_t *enc28j60 = __containerof(phy, phy_enc28j60_t, parent);
   *addr = enc28j60->addr;
   return ESP_OK;
+  
 err:
   return ESP_ERR_INVALID_ARG;
 }
+
+////////////////////////////////////////
 
 static esp_err_t enc28j60_del(esp_eth_phy_t *phy)
 {
   phy_enc28j60_t *enc28j60 = __containerof(phy, phy_enc28j60_t, parent);
   free(enc28j60);
+  
   return ESP_OK;
 }
+
+////////////////////////////////////////
 
 static esp_err_t enc28j60_init(esp_eth_phy_t *phy)
 {
   phy_enc28j60_t *enc28j60 = __containerof(phy, phy_enc28j60_t, parent);
   esp_eth_mediator_t *eth = enc28j60->eth;
+  
   /* Power on Ethernet PHY */
   PHY_CHECK(enc28j60_pwrctl(phy, true) == ESP_OK, "power control failed", err);
   /* Reset Ethernet PHY */
@@ -357,38 +418,50 @@ static esp_err_t enc28j60_init(esp_eth_phy_t *phy)
   /* Check PHY ID */
   phyidr1_reg_t id1;
   phyidr2_reg_t id2;
+  
   PHY_CHECK(eth->phy_reg_read(eth, enc28j60->addr, ETH_PHY_IDR1_REG_ADDR, &(id1.val)) == ESP_OK,
             "read ID1 failed", err);
   PHY_CHECK(eth->phy_reg_read(eth, enc28j60->addr, ETH_PHY_IDR2_REG_ADDR, &(id2.val)) == ESP_OK,
             "read ID2 failed", err);
   PHY_CHECK(id1.oui_msb == 0x0083 && id2.oui_lsb == 0x05 && id2.vendor_model == 0x00,
             "wrong chip ID", err);
+            
   /* Disable half duplex loopback */
-  phcon2_reg_t phcon2;
+  phcon2_reg_t phcon2; 
   PHY_CHECK(eth->phy_reg_read(eth, enc28j60->addr, ETH_PHY_PHCON2_REG_ADDR, &(phcon2.val)) == ESP_OK,
             "read PHCON2 failed", err);
+            
   phcon2.hdldis = 1;
   PHY_CHECK(eth->phy_reg_write(eth, enc28j60->addr, ETH_PHY_PHCON2_REG_ADDR, phcon2.val) == ESP_OK,
             "write PHCON2 failed", err);
+            
   return ESP_OK;
+  
 err:
   return ESP_FAIL;
 }
+
+////////////////////////////////////////
 
 static esp_err_t enc28j60_deinit(esp_eth_phy_t *phy)
 {
   /* Power off Ethernet PHY */
   PHY_CHECK(enc28j60_pwrctl(phy, false) == ESP_OK, "power off Ethernet PHY failed", err);
   return ESP_OK;
+  
 err:
   return ESP_FAIL;
 }
 
+////////////////////////////////////////
+
 esp_eth_phy_t *esp_eth_phy_new_enc28j60(const eth_phy_config_t *config)
 {
   PHY_CHECK(config, "can't set phy config to null", err);
+  
   phy_enc28j60_t *enc28j60 = calloc(1, sizeof(phy_enc28j60_t));
   PHY_CHECK(enc28j60, "calloc enc28j60 failed", err);
+  
   enc28j60->addr = config->phy_addr; // although PHY addr is meaningless to ENC28J60
   enc28j60->reset_timeout_ms = config->reset_timeout_ms;
   enc28j60->reset_gpio_num = config->reset_gpio_num;
@@ -404,7 +477,12 @@ esp_eth_phy_t *esp_eth_phy_new_enc28j60(const eth_phy_config_t *config)
   enc28j60->parent.get_addr = enc28j60_get_addr;
   enc28j60->parent.set_addr = enc28j60_set_addr;
   enc28j60->parent.del = enc28j60_del;
+  
   return &(enc28j60->parent);
+  
 err:
   return NULL;
 }
+
+////////////////////////////////////////
+

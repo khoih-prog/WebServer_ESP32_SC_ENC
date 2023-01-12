@@ -25,8 +25,8 @@
 //////////////////////////////////////////////////////////
 
 // Optional values to override default settings
-//#define SPI_HOST            1
-//#define SPI_CLOCK_MHZ       8
+//#define ETH_SPI_HOST        SPI2_HOST
+//#define SPI_CLOCK_MHZ       20
 
 // Must connect INT to GPIOxx or not working
 //#define INT_GPIO            4

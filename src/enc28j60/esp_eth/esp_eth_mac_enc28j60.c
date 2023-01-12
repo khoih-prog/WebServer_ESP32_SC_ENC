@@ -9,13 +9,14 @@
   Built by Khoi Hoang https://github.com/khoih-prog/WebServer_ESP32_SC_ENC
   Licensed under GPLv3 license
 
-  Version: 1.2.0
+  Version: 1.2.1
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      13/12/2022 Initial coding for ESP32_S3_ENC (ESP32_S3 + LwIP ENC28J60)
   1.1.0   K Hoang      19/12/2022 Add support to ESP32_S2_ENC (ESP32_S2 + LwIP ENC28J60)
   1.2.0   K Hoang      20/12/2022 Add support to ESP32_C3_ENC (ESP32_C3 + LwIP ENC28J60)
+  1.2.1   K Hoang      11/01/2023 Increase default SPI clock to 20MHz from 8MHz
  *****************************************************************************************************************************/
 
 // Copyright 2019 Espressif Systems (Shanghai) PTE LTD
@@ -240,13 +241,15 @@ static inline uint32_t enc28j60_rx_packet_start(uint32_t start_addr, uint32_t of
 static esp_err_t enc28j60_do_register_write(emac_enc28j60_t *emac, uint8_t reg_addr, uint8_t value)
 {
   esp_err_t ret = ESP_OK;
+  
   spi_transaction_t trans =
   {
     .cmd = ENC28J60_SPI_CMD_WCR, // Write control register
     .addr = reg_addr,
     .length = 8,
     .flags = SPI_TRANS_USE_TXDATA,
-    .tx_data = {
+    .tx_data = 
+    {
       [0] = value
     }
   };
@@ -277,6 +280,7 @@ static esp_err_t enc28j60_do_register_write(emac_enc28j60_t *emac, uint8_t reg_a
 static esp_err_t enc28j60_do_register_read(emac_enc28j60_t *emac, bool is_eth_reg, uint8_t reg_addr, uint8_t *value)
 {
   esp_err_t ret = ESP_OK;
+  
   spi_transaction_t trans =
   {
     .cmd = ENC28J60_SPI_CMD_RCR, // Read control register
@@ -316,13 +320,15 @@ static esp_err_t enc28j60_do_register_read(emac_enc28j60_t *emac, bool is_eth_re
 static esp_err_t enc28j60_do_bitwise_set(emac_enc28j60_t *emac, uint8_t reg_addr, uint8_t mask)
 {
   esp_err_t ret = ESP_OK;
+  
   spi_transaction_t trans =
   {
     .cmd = ENC28J60_SPI_CMD_BFS, // Bit field set
     .addr = reg_addr,
     .length = 8,
     .flags = SPI_TRANS_USE_TXDATA,
-    .tx_data = {
+    .tx_data = 
+    {
       [0] = mask
     }
   };
@@ -354,13 +360,15 @@ static esp_err_t enc28j60_do_bitwise_set(emac_enc28j60_t *emac, uint8_t reg_addr
 static esp_err_t enc28j60_do_bitwise_clr(emac_enc28j60_t *emac, uint8_t reg_addr, uint8_t mask)
 {
   esp_err_t ret = ESP_OK;
+  
   spi_transaction_t trans =
   {
     .cmd = ENC28J60_SPI_CMD_BFC, // Bit field clear
     .addr = reg_addr,
     .length = 8,
     .flags = SPI_TRANS_USE_TXDATA,
-    .tx_data = {
+    .tx_data = 
+    {
       [0] = mask
     }
   };
@@ -391,6 +399,7 @@ static esp_err_t enc28j60_do_bitwise_clr(emac_enc28j60_t *emac, uint8_t reg_addr
 static esp_err_t enc28j60_do_memory_write(emac_enc28j60_t *emac, uint8_t *buffer, uint32_t len)
 {
   esp_err_t ret = ESP_OK;
+  
   spi_transaction_t trans =
   {
     .cmd = ENC28J60_SPI_CMD_WBM, // Write buffer memory
@@ -459,6 +468,7 @@ static esp_err_t enc28j60_do_memory_read(emac_enc28j60_t *emac, uint8_t *buffer,
 static esp_err_t enc28j60_do_reset(emac_enc28j60_t *emac)
 {
   esp_err_t ret = ESP_OK;
+  
   spi_transaction_t trans =
   {
     .cmd = ENC28J60_SPI_CMD_SRC, // Soft reset
@@ -531,8 +541,10 @@ static esp_err_t enc28j60_register_write(emac_enc28j60_t *emac, uint16_t reg_add
   }
 
   return ret;
+  
 out:
   enc28j60_reg_trans_unlock(emac);
+  
   return ret;
 }
 
@@ -559,8 +571,10 @@ static esp_err_t enc28j60_register_read(emac_enc28j60_t *emac, uint16_t reg_addr
   }
 
   return ret;
+  
 out:
   enc28j60_reg_trans_unlock(emac);
+  
   return ret;
 }
 
@@ -572,12 +586,14 @@ out:
 static esp_err_t enc28j60_read_packet(emac_enc28j60_t *emac, uint32_t addr, uint8_t *packet, uint32_t len)
 {
   esp_err_t ret = ESP_OK;
+  
   MAC_CHECK(enc28j60_register_write(emac, ENC28J60_ERDPTL, addr & 0xFF) == ESP_OK,
             "write ERDPTL failed", out, ESP_FAIL);
   MAC_CHECK(enc28j60_register_write(emac, ENC28J60_ERDPTH, (addr & 0xFF00) >> 8) == ESP_OK,
             "write ERDPTH failed", out, ESP_FAIL);
   MAC_CHECK(enc28j60_do_memory_read(emac, packet, len) == ESP_OK,
             "read memory failed", out, ESP_FAIL);
+            
 out:
   return ret;
 }
@@ -591,6 +607,7 @@ static esp_err_t emac_enc28j60_write_phy_reg(esp_eth_mac_t *mac, uint32_t phy_ad
                                              uint32_t phy_reg, uint32_t reg_value)
 {
   esp_err_t ret = ESP_OK;
+  
   emac_enc28j60_t *emac = __containerof(mac, emac_enc28j60_t, parent);
   uint8_t mii_status;
 
@@ -619,6 +636,7 @@ static esp_err_t emac_enc28j60_write_phy_reg(esp_eth_mac_t *mac, uint32_t phy_ad
   } while ((mii_status & MISTAT_BUSY) && to < ENC28J60_PHY_OPERATION_TIMEOUT_US);
 
   MAC_CHECK(!(mii_status & MISTAT_BUSY), "phy is busy", out, ESP_ERR_TIMEOUT);
+  
 out:
   return ret;
 }
@@ -632,8 +650,10 @@ static esp_err_t emac_enc28j60_read_phy_reg(esp_eth_mac_t *mac, uint32_t phy_add
                                             uint32_t phy_reg, uint32_t *reg_value)
 {
   esp_err_t ret = ESP_OK;
+  
   MAC_CHECK(reg_value, "can't set reg_value to null", out, ESP_ERR_INVALID_ARG);
   emac_enc28j60_t *emac = __containerof(mac, emac_enc28j60_t, parent);
+  
   uint8_t mii_status;
   uint8_t mii_cmd;
 
@@ -673,6 +693,7 @@ static esp_err_t emac_enc28j60_read_phy_reg(esp_eth_mac_t *mac, uint32_t phy_add
   MAC_CHECK(enc28j60_register_read(emac, ENC28J60_MIRDH, &value_h) == ESP_OK,
             "read MIRDH failed", out, ESP_FAIL);
   *reg_value = (value_h << 8) | value_l;
+  
 out:
   return ret;
 }
@@ -685,9 +706,11 @@ out:
 static esp_err_t emac_enc28j60_set_mediator(esp_eth_mac_t *mac, esp_eth_mediator_t *eth)
 {
   esp_err_t ret = ESP_OK;
+  
   MAC_CHECK(eth, "can't set mac's mediator to null", out, ESP_ERR_INVALID_ARG);
   emac_enc28j60_t *emac = __containerof(mac, emac_enc28j60_t, parent);
   emac->eth = eth;
+  
 out:
   return ret;
 }
@@ -700,11 +723,13 @@ out:
 static esp_err_t enc28j60_verify_id(emac_enc28j60_t *emac)
 {
   esp_err_t ret = ESP_OK;
+  
   MAC_CHECK(enc28j60_register_read(emac, ENC28J60_EREVID, (uint8_t *)&emac->revision) == ESP_OK,
             "read EREVID failed", out, ESP_FAIL);
   ESP_LOGI(TAG, "revision: %d", emac->revision);
   MAC_CHECK(emac->revision >= ENC28J60_REV_B1
             && emac->revision <= ENC28J60_REV_B7, "wrong chip ID", out, ESP_ERR_INVALID_VERSION);
+            
 out:
   return ret;
 }
@@ -730,6 +755,7 @@ static esp_err_t enc28j60_set_mac_addr(emac_enc28j60_t *emac)
             "write MAADR2 failed", out, ESP_FAIL);
   MAC_CHECK(enc28j60_register_write(emac, ENC28J60_MAADR1, emac->addr[0]) == ESP_OK,
             "write MAADR1 failed", out, ESP_FAIL);
+            
 out:
   return ret;
 }
@@ -771,6 +797,7 @@ static esp_err_t enc28j60_setup_default(emac_enc28j60_t *emac)
             "write ERXNDL failed", out, ESP_FAIL);
   MAC_CHECK(enc28j60_register_write(emac, ENC28J60_ERXNDH, (ENC28J60_BUF_RX_END & 0xFF00) >> 8) == ESP_OK,
             "write ERXNDH failed", out, ESP_FAIL);
+            
   uint32_t erxrdpt = enc28j60_next_ptr_align_odd(ENC28J60_BUF_RX_START, ENC28J60_BUF_RX_START, ENC28J60_BUF_RX_END);
   MAC_CHECK(enc28j60_register_write(emac, ENC28J60_ERXRDPTL, erxrdpt & 0xFF) == ESP_OK,
             "write ERXRDPTL failed", out, ESP_FAIL);
@@ -817,6 +844,7 @@ out:
 static esp_err_t emac_enc28j60_start(esp_eth_mac_t *mac)
 {
   esp_err_t ret = ESP_OK;
+  
   emac_enc28j60_t *emac = __containerof(mac, emac_enc28j60_t, parent);
   /* enable interrupt */
   MAC_CHECK(enc28j60_do_bitwise_clr(emac, ENC28J60_EIR, 0xFF) == ESP_OK,
@@ -831,6 +859,7 @@ static esp_err_t emac_enc28j60_start(esp_eth_mac_t *mac)
             "write ERDPTL failed", out, ESP_FAIL);
   MAC_CHECK(enc28j60_register_write(emac, ENC28J60_ERDPTH, 0x00) == ESP_OK,
             "write ERDPTH failed", out, ESP_FAIL);
+            
 out:
   return ret;
 }
@@ -843,6 +872,7 @@ out:
 static esp_err_t emac_enc28j60_stop(esp_eth_mac_t *mac)
 {
   esp_err_t ret = ESP_OK;
+  
   emac_enc28j60_t *emac = __containerof(mac, emac_enc28j60_t, parent);
   /* disable interrupt */
   MAC_CHECK(enc28j60_do_bitwise_clr(emac, ENC28J60_EIE, 0xFF) == ESP_OK,
@@ -850,6 +880,7 @@ static esp_err_t emac_enc28j60_stop(esp_eth_mac_t *mac)
   /* disable rx */
   MAC_CHECK(enc28j60_do_bitwise_clr(emac, ENC28J60_ECON1, ECON1_RXEN) == ESP_OK,
             "clear ECON1.RXEN failed", out, ESP_FAIL);
+            
 out:
   return ret;
 }
@@ -859,10 +890,12 @@ out:
 static esp_err_t emac_enc28j60_set_addr(esp_eth_mac_t *mac, uint8_t *addr)
 {
   esp_err_t ret = ESP_OK;
+  
   MAC_CHECK(addr, "can't set mac addr to null", out, ESP_ERR_INVALID_ARG);
   emac_enc28j60_t *emac = __containerof(mac, emac_enc28j60_t, parent);
   memcpy(emac->addr, addr, 6);
   MAC_CHECK(enc28j60_set_mac_addr(emac) == ESP_OK, "set mac address failed", out, ESP_FAIL);
+  
 out:
   return ret;
 }
@@ -872,9 +905,11 @@ out:
 static esp_err_t emac_enc28j60_get_addr(esp_eth_mac_t *mac, uint8_t *addr)
 {
   esp_err_t ret = ESP_OK;
+  
   MAC_CHECK(addr, "can't set mac addr to null", out, ESP_ERR_INVALID_ARG);
   emac_enc28j60_t *emac = __containerof(mac, emac_enc28j60_t, parent);
   memcpy(addr, emac->addr, 6);
+  
 out:
   return ret;
 }
@@ -892,6 +927,7 @@ static void enc28j60_isr_handler(void *arg)
 {
   emac_enc28j60_t *emac = (emac_enc28j60_t *)arg;
   BaseType_t high_task_wakeup = pdFALSE;
+  
   /* notify enc28j60 task */
   vTaskNotifyGiveFromISR(emac->rx_task_hdl, &high_task_wakeup);
 
@@ -1092,8 +1128,10 @@ out:
 static esp_err_t emac_enc28j60_set_duplex(esp_eth_mac_t *mac, eth_duplex_t duplex)
 {
   esp_err_t ret = ESP_OK;
+  
   emac_enc28j60_t *emac = __containerof(mac, emac_enc28j60_t, parent);
   uint8_t mac3 = 0;
+  
   MAC_CHECK(enc28j60_register_read(emac, ENC28J60_MACON3, &mac3) == ESP_OK,
             "read MACON3 failed", out, ESP_FAIL);
 
@@ -1120,6 +1158,7 @@ static esp_err_t emac_enc28j60_set_duplex(esp_eth_mac_t *mac, eth_duplex_t duple
 
   MAC_CHECK(enc28j60_register_write(emac, ENC28J60_MACON3, mac3) == ESP_OK,
             "write MACON3 failed", out, ESP_FAIL);
+            
 out:
   return ret;
 }
@@ -1129,6 +1168,7 @@ out:
 static esp_err_t emac_enc28j60_set_promiscuous(esp_eth_mac_t *mac, bool enable)
 {
   esp_err_t ret = ESP_OK;
+  
   emac_enc28j60_t *emac = __containerof(mac, emac_enc28j60_t, parent);
 
   if (enable)
@@ -1146,6 +1186,7 @@ out:
 static esp_err_t emac_enc28j60_transmit(esp_eth_mac_t *mac, uint8_t *buf, uint32_t length)
 {
   esp_err_t ret = ESP_OK;
+  
   emac_enc28j60_t *emac = __containerof(mac, emac_enc28j60_t, parent);
   uint8_t econ1 = 0;
 
@@ -1188,6 +1229,7 @@ static esp_err_t emac_enc28j60_transmit(esp_eth_mac_t *mac, uint8_t *buf, uint32
   /* issue tx polling command */
   MAC_CHECK(enc28j60_do_bitwise_set(emac, ENC28J60_ECON1, ECON1_TXRTS) == ESP_OK,
             "set ECON1.TXRTS failed", out, ESP_FAIL);
+            
 out:
   return ret;
 }
@@ -1197,6 +1239,7 @@ out:
 static esp_err_t emac_enc28j60_receive(esp_eth_mac_t *mac, uint8_t *buf, uint32_t *length)
 {
   esp_err_t ret = ESP_OK;
+  
   emac_enc28j60_t *emac = __containerof(mac, emac_enc28j60_t, parent);
   uint8_t pk_counter = 0;
   uint16_t rx_len = 0;
@@ -1231,6 +1274,7 @@ static esp_err_t emac_enc28j60_receive(esp_eth_mac_t *mac, uint8_t *buf, uint32_
 
   *length = rx_len - 4; // subtract the CRC length
   emac->packets_remain = pk_counter > 0;
+  
 out:
   return ret;
 }
@@ -1243,6 +1287,7 @@ out:
 eth_enc28j60_rev_t emac_enc28j60_get_chip_info(esp_eth_mac_t *mac)
 {
   emac_enc28j60_t *emac = __containerof(mac, emac_enc28j60_t, parent);
+  
   return emac->revision;
 }
 
@@ -1251,6 +1296,7 @@ eth_enc28j60_rev_t emac_enc28j60_get_chip_info(esp_eth_mac_t *mac)
 static esp_err_t emac_enc28j60_init(esp_eth_mac_t *mac)
 {
   esp_err_t ret = ESP_OK;
+  
   emac_enc28j60_t *emac = __containerof(mac, emac_enc28j60_t, parent);
   esp_eth_mediator_t *eth = emac->eth;
 
@@ -1274,10 +1320,12 @@ static esp_err_t emac_enc28j60_init(esp_eth_mac_t *mac)
   MAC_CHECK(enc28j60_clear_multicast_table(emac) == ESP_OK, "clear multicast table failed", out, ESP_FAIL);
 
   return ESP_OK;
+  
 out:
   gpio_isr_handler_remove(emac->int_gpio_num);
   gpio_reset_pin(emac->int_gpio_num);
   eth->on_state_changed(eth, ETH_STATE_DEINIT, NULL);
+  
   return ret;
 }
 
@@ -1288,9 +1336,11 @@ static esp_err_t emac_enc28j60_deinit(esp_eth_mac_t *mac)
   emac_enc28j60_t *emac = __containerof(mac, emac_enc28j60_t, parent);
   esp_eth_mediator_t *eth = emac->eth;
   mac->stop(mac);
+  
   gpio_isr_handler_remove(emac->int_gpio_num);
   gpio_reset_pin(emac->int_gpio_num);
   eth->on_state_changed(eth, ETH_STATE_DEINIT, NULL);
+  
   return ESP_OK;
 }
 
@@ -1304,6 +1354,7 @@ static esp_err_t emac_enc28j60_del(esp_eth_mac_t *mac)
   vSemaphoreDelete(emac->reg_trans_lock);
   vSemaphoreDelete(emac->tx_ready_sem);
   free(emac);
+  
   return ESP_OK;
 }
 
@@ -1314,12 +1365,15 @@ esp_eth_mac_t *esp_eth_mac_new_enc28j60(const eth_enc28j60_config_t *enc28j60_co
 {
   esp_eth_mac_t *ret = NULL;
   emac_enc28j60_t *emac = NULL;
+  
   MAC_CHECK(enc28j60_config, "can't set enc28j60 specific config to null", err, NULL);
   MAC_CHECK(mac_config, "can't set mac config to null", err, NULL);
+  
   emac = calloc(1, sizeof(emac_enc28j60_t));
   MAC_CHECK(emac, "calloc emac failed", err, NULL);
   /* enc28j60 driver is interrupt driven */
   MAC_CHECK(enc28j60_config->int_gpio_num >= 0, "error interrupt gpio number", err, NULL);
+  
   emac->last_bank = 0xFF;
   emac->next_packet_ptr = ENC28J60_BUF_RX_START;
   /* bind methods and attributes */
@@ -1344,12 +1398,14 @@ esp_eth_mac_t *esp_eth_mac_new_enc28j60(const eth_enc28j60_config_t *enc28j60_co
   emac->parent.receive = emac_enc28j60_receive;
   /* create mutex */
   emac->spi_lock = xSemaphoreCreateMutex();
+  
   MAC_CHECK(emac->spi_lock, "create spi lock failed", err, NULL);
   emac->reg_trans_lock = xSemaphoreCreateMutex();
   MAC_CHECK(emac->reg_trans_lock, "create register transaction lock failed", err, NULL);
   emac->tx_ready_sem = xSemaphoreCreateBinary();
   MAC_CHECK(emac->tx_ready_sem, "create pkt transmit ready semaphore failed", err, NULL);
   xSemaphoreGive(emac->tx_ready_sem); // ensures the first transmit is performed without waiting
+  
   /* create enc28j60 task */
   BaseType_t core_num = tskNO_AFFINITY;
 

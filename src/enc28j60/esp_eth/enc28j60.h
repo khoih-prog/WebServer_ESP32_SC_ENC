@@ -9,13 +9,14 @@
   Built by Khoi Hoang https://github.com/khoih-prog/WebServer_ESP32_SC_ENC
   Licensed under GPLv3 license
 
-  Version: 1.2.0
+  Version: 1.2.1
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      13/12/2022 Initial coding for ESP32_S3_ENC (ESP32_S3 + LwIP ENC28J60)
   1.1.0   K Hoang      19/12/2022 Add support to ESP32_S2_ENC (ESP32_S2 + LwIP ENC28J60)
   1.2.0   K Hoang      20/12/2022 Add support to ESP32_C3_ENC (ESP32_C3 + LwIP ENC28J60)
+  1.2.1   K Hoang      11/01/2023 Increase default SPI clock to 20MHz from 8MHz
  *****************************************************************************************************************************/
 
 // Copyright 2019 Espressif Systems (Shanghai) PTE LTD
@@ -38,6 +39,8 @@
 extern "C" {
 #endif
 
+////////////////////////////////////////
+
 /**
    @brief SPI Instruction Set
 
@@ -50,6 +53,8 @@ extern "C" {
 #define ENC28J60_SPI_CMD_BFC (0x05) // Bit Field Clear
 #define ENC28J60_SPI_CMD_SRC (0x07) // Soft Reset
 
+////////////////////////////////////////
+
 /**
    @brief Shared Registers in ENC28J60 (accessible on each bank)
 
@@ -59,6 +64,8 @@ extern "C" {
 #define ENC28J60_ESTAT    (0x1D) // Ethernet Status
 #define ENC28J60_ECON2    (0x1E) // Ethernet Control Register2
 #define ENC28J60_ECON1    (0x1F) // Ethernet Control Register1
+
+////////////////////////////////////////
 
 /**
    @brief Per-bank Registers in ENC28J60
@@ -92,6 +99,8 @@ extern "C" {
 #define ENC28J60_EDMACSL  (0x0016) // DMA Checksum Low Byte (EDMACS<7:0>)
 #define ENC28J60_EDMACSH  (0x0017) // DMA Checksum High Byte (EDMACS<15:8>)
 
+////////////////////////////////////////
+
 // Bank 1 Registers
 #define ENC28J60_EHT0     (0x0100) // Hash Table Byte 0 (EHT<7:0>)
 #define ENC28J60_EHT1     (0x0101) // Hash Table Byte 1 (EHT<15:8>)
@@ -116,6 +125,8 @@ extern "C" {
 #define ENC28J60_ERXFCON  (0x0118) // Receive Filter Control
 #define ENC28J60_EPKTCNT  (0x0119) // Ethernet Packet Count
 
+////////////////////////////////////////
+
 // Bank 2 Register
 #define ENC28J60_MACON1   (0x1200) // MAC Control Register 1
 #define ENC28J60_MACON2   (0x1201) // MAC Control Register 2
@@ -135,6 +146,8 @@ extern "C" {
 #define ENC28J60_MIRDL    (0x1218) // MII Read Data Low Byte (MIRD<7:0>)
 #define ENC28J60_MIRDH    (0x1219) // MII Read Data High Byte(MIRD<15:8>)
 
+////////////////////////////////////////
+
 // Bank 3 Registers
 #define ENC28J60_MAADR5   (0x1300) // MAC Address Byte 5 (MAADR<15:8>)
 #define ENC28J60_MAADR6   (0x1301) // MAC Address Byte 6 (MAADR<7:0>)
@@ -152,6 +165,8 @@ extern "C" {
 #define ENC28J60_EFLOCON  (0x0317) // Ethernet Flow Control
 #define ENC28J60_EPAUSL   (0x0318) // Pause Timer Value Low Byte (EPAUS<7:0>)
 #define ENC28J60_EPAUSH   (0x0319) // Pause Timer Value High Byte (EPAUS<15:8>)
+
+////////////////////////////////////////
 
 /**
    @brief status and flag of ENC28J60 specific registers
@@ -252,6 +267,8 @@ extern "C" {
 #define EFLOCON_FULDPXS  (1<<2) // Full-Duplex Shadown
 #define EFLOCON_FCEN1    (1<<1) // Flow Control Enable 1
 #define EFLOCON_FCEN0    (1<<0) // Flow Control Enable 0
+
+////////////////////////////////////////
 
 #ifdef __cplusplus
 }

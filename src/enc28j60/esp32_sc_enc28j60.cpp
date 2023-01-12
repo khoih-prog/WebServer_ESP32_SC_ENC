@@ -9,13 +9,14 @@
   Built by Khoi Hoang https://github.com/khoih-prog/WebServer_ESP32_SC_ENC
   Licensed under GPLv3 license
 
-  Version: 1.2.0
+  Version: 1.2.1
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      13/12/2022 Initial coding for ESP32_S3_ENC (ESP32_S3 + LwIP ENC28J60)
   1.1.0   K Hoang      19/12/2022 Add support to ESP32_S2_ENC (ESP32_S2 + LwIP ENC28J60)
   1.2.0   K Hoang      20/12/2022 Add support to ESP32_C3_ENC (ESP32_C3 + LwIP ENC28J60)
+  1.2.1   K Hoang      11/01/2023 Increase default SPI clock to 20MHz from 8MHz
  *****************************************************************************************************************************/
 /*
   Based on ETH.h from arduino-esp32 and esp-idf
@@ -29,12 +30,16 @@
 #include "WebServer_ESP32_SC_ENC_Debug.h"
 #include "esp32_sc_enc28j60.h"
 
+////////////////////////////////////////
+
 extern "C"
 {
   esp_eth_mac_t* enc28j60_begin(int MISO, int MOSI, int SCLK, int CS, int INT, int SPICLOCK_MHZ,
                                 int SPIHOST);
-#include "esp_eth/esp_eth_enc28j60.h"
+  #include "esp_eth/esp_eth_enc28j60.h"
 }
+
+////////////////////////////////////////
 
 #include "esp_event.h"
 #include "esp_eth_phy.h"
@@ -48,6 +53,8 @@ extern "C"
 
 #include "lwip/err.h"
 #include "lwip/dns.h"
+
+////////////////////////////////////////
 
 extern void tcpipInit();
 
@@ -73,8 +80,6 @@ bool ESP32_ENC::begin(int MISO, int MOSI, int SCLK, int CS, int INT, int SPICLOC
                       uint8_t *ENC28J60_Mac)
 {
   tcpipInit();
-
-  //esp_base_mac_addr_set( ENC28J60_Mac );
 
 #if USING_ESP32_S3
 
@@ -205,6 +210,7 @@ bool ESP32_ENC::config(IPAddress local_ip, IPAddress gateway, IPAddress subnet, 
   if (err != ESP_OK && err != ESP_ERR_TCPIP_ADAPTER_DHCP_ALREADY_STOPPED)
   {
     ET_LOGERROR1("DHCP could not be stopped! Error =", err);
+    
     return false;
   }
 
@@ -213,6 +219,7 @@ bool ESP32_ENC::config(IPAddress local_ip, IPAddress gateway, IPAddress subnet, 
   if (err != ERR_OK)
   {
     ET_LOGERROR1("STA IP could not be configured! Error = ", err);
+    
     return false;
   }
 
@@ -227,6 +234,7 @@ bool ESP32_ENC::config(IPAddress local_ip, IPAddress gateway, IPAddress subnet, 
     if (err != ESP_OK && err != ESP_ERR_TCPIP_ADAPTER_DHCP_ALREADY_STARTED)
     {
       ET_LOGWARN1("DHCP could not be started! Error =", err);
+      
       return false;
     }
 
@@ -396,6 +404,7 @@ uint8_t ESP32_ENC::linkSpeed()
 #ifdef ESP_IDF_VERSION_MAJOR
   eth_speed_t link_speed;
   esp_eth_ioctl(eth_handle, ETH_CMD_G_SPEED, &link_speed);
+  
   return (link_speed == ETH_SPEED_10M) ? 10 : 100;
 #else
   return eth_config.phy_get_speed_mode() ? 100 : 10;
