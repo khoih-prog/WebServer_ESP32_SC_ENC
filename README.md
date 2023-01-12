@@ -16,6 +16,7 @@
 
 * [Why do we need this WebServer_ESP32_SC_ENC library](#why-do-we-need-this-WebServer_ESP32_SC_ENC-library)
   * [Features](#features)
+  * [Sibling libraries](#Sibling-libraries)
   * [Currently supported Boards](#currently-supported-boards)
 * [Changelog](changelog.md)
 * [Prerequisites](#prerequisites)
@@ -102,26 +103,62 @@ Library is providing similar functions to:
 
 ---
 
-Please also check these twin libraries
+#### Sibling libraries
+
+Please also check these sibling libraries
 
 1. [WebServer_WT32_ETH01](https://github.com/khoih-prog/WebServer_WT32_ETH01) for ESP32-based `WT32_ETH01` using `LwIP LAN8720`
 2. [WebServer_ESP32_ENC](https://github.com/khoih-prog/WebServer_ESP32_ENC) for ESP32-boards using `LwIP ENC28J60`
 3. [WebServer_ESP32_W5500](https://github.com/khoih-prog/WebServer_ESP32_W5500) for ESP32-boards using `LwIP W5500`
-4. [WebServer_ESP32_SC_W5500](https://github.com/khoih-prog/WebServer_ESP32_SC_W5500) for ESP32_S3-boards using `LwIP W5500`
+4. [WebServer_ESP32_W6100](https://github.com/khoih-prog/WebServer_ESP32_W6100) for ESP32-boards using `LwIP W6100`
+5. [WebServer_ESP32_SC_ENC](https://github.com/khoih-prog/WebServer_ESP32_SC_ENC) for ESP32_S3-boards using `LwIP ENC28J60`
+6. [WebServer_ESP32_SC_W5500](https://github.com/khoih-prog/WebServer_ESP32_SC_W5500) for ESP32_S3-boards using `LwIP W5500`
+7. [WebServer_ESP32_SC_W6100](https://github.com/khoih-prog/WebServer_ESP32_SC_W6100) for ESP32_S3-boards using `LwIP W6100`
 
 and more complex libraries for ESP32-based using `LwIP Ethernet`
+
+#### General Libraries
 
  1. [AsyncHTTPRequest_ESP32_Ethernet](https://github.com/khoih-prog/AsyncHTTPRequest_ESP32_Ethernet)
  2. [AsyncHTTPSRequest_ESP32_Ethernet](https://github.com/khoih-prog/AsyncHTTPSRequest_ESP32_Ethernet)
  3. [AsyncMQTT_ESP32](https://github.com/khoih-prog/AsyncMQTT_ESP32)
  4. [HTTPS_Server_Generic](https://github.com/khoih-prog/HTTPS_Server_Generic)
- 5. [AsyncESP32_SC_Ethernet_Manager](https://github.com/khoih-prog/AsyncESP32_SC_Ethernet_Manager)
- 6. [ESP32_SC_ENC_Manager](https://github.com/khoih-prog/ESP32_SC_ENC_Manager)
- 7. [ESP32_SC_Ethernet_Manager](https://github.com/khoih-prog/ESP32_SC_Ethernet_Manager)
- 8. [AsyncESP32_SC_ENC_Manager](https://github.com/khoih-prog/AsyncESP32_SC_ENC_Manager)
- 9. [AsyncUDP_ESP32_SC_ENC](https://github.com/khoih-prog/AsyncUDP_ESP32_SC_ENC)
-10. [AsyncUDP_ESP32_SC_Ethernet](https://github.com/khoih-prog/AsyncUDP_ESP32_SC_Ethernet)
-11. [AsyncDNSServer_ESP32_Ethernet](https://github.com/khoih-prog/AsyncDNSServer_ESP32_Ethernet)
+ 
+#### ESP32_Ethernet_Manager Libraries
+ 
+ 1. [ESP32_ENC_Manager](https://github.com/khoih-prog/ESP32_ENC_Manager)
+ 2. [ESP32_W5500_Manager](https://github.com/khoih-prog/ESP32_W5500_Manager)
+ 3. [ESP32_Ethernet_Manager](https://github.com/khoih-prog/ESP32_Ethernet_Manager)
+ 4. [ESP32_SC_ENC_Manager](https://github.com/khoih-prog/ESP32_SC_ENC_Manager)
+ 5. [ESP32_SC_W5500_Manager](https://github.com/khoih-prog/ESP32_SC_W5500_Manager)
+ 6. [ESP32_SC_Ethernet_Manager](https://github.com/khoih-prog/ESP32_SC_Ethernet_Manager)
+ 
+#### AsyncESP32_Ethernet_Manager Libraries
+ 
+ 1. [AsyncESP32_ENC_Manager](https://github.com/khoih-prog/AsyncESP32_ENC_Manager)
+ 2. [AsyncESP32_W5500_Manager](https://github.com/khoih-prog/AsyncESP32_W5500_Manager)
+ 3. [AsyncESP32_Ethernet_Manager](https://github.com/khoih-prog/AsyncESP32_Ethernet_Manager)
+ 4. [AsyncESP32_SC_ENC_Manager](https://github.com/khoih-prog/AsyncESP32_SC_ENC_Manager)
+ 5. [AsyncESP32_SC_W5500_Manager](https://github.com/khoih-prog/AsyncESP32_SC_W5500_Manager)
+ 6. [AsyncESP32_SC_Ethernet_Manager](https://github.com/khoih-prog/AsyncESP32_SC_Ethernet_Manager)
+ 
+#### AsyncUDP_ESP32 Libraries
+ 
+ 1. [AsyncUDP_ESP32_ENC](https://github.com/khoih-prog/AsyncUDP_ESP32_ENC)
+ 2. [AsyncUDP_ESP32_W5500](https://github.com/khoih-prog/AsyncUDP_ESP32_W5500)
+ 3. [AsyncUDP_ESP32_W6100](https://github.com/khoih-prog/AsyncUDP_ESP32_W6100)
+ 4. [AsyncUDP_ESP32_Ethernet](https://github.com/khoih-prog/AsyncUDP_ESP32_Ethernet)
+ 5. [AsyncUDP_ESP32_SC_ENC](https://github.com/khoih-prog/AsyncUDP_ESP32_SC_ENC)
+ 6. [AsyncUDP_ESP32_SC_W5500](https://github.com/khoih-prog/AsyncUDP_ESP32_SC_W5500)
+ 7. [AsyncUDP_ESP32_SC_W6100](https://github.com/khoih-prog/AsyncUDP_ESP32_SC_W6100)
+ 8. [AsyncUDP_ESP32_SC_Ethernet](https://github.com/khoih-prog/AsyncUDP_ESP32_SC_Ethernet)
+
+#### AsyncDNSServer_ESP32 Libraries
+
+ 1. [AsyncDNSServer_ESP32_ENC](https://github.com/khoih-prog/AsyncDNSServer_ESP32_ENC)
+ 2. [AsyncDNSServer_ESP32_W5500](https://github.com/khoih-prog/AsyncDNSServer_ESP32_W5500)
+ 3. [AsyncDNSServer_ESP32_W6100](https://github.com/khoih-prog/AsyncDNSServer_ESP32_W6100)
+ 4. [AsyncDNSServer_ESP32_Ethernet](https://github.com/khoih-prog/AsyncDNSServer_ESP32_Ethernet)
 
 
 ---
@@ -161,6 +198,8 @@ This [**WebServer_ESP32_SC_ENC** library](https://github.com/khoih-prog/WebServe
 
 #### ENC28J60
 
+`FULL_DUPLEX, 10Mbps`
+
 <p align="center">
     <img src="https://github.com/khoih-prog/WebServer_ESP32_SC_ENC/raw/main/pics/ENC28J60.png">
 </p>
@@ -173,7 +212,7 @@ This [**WebServer_ESP32_SC_ENC** library](https://github.com/khoih-prog/WebServe
 ## Prerequisites
 
  1. [`Arduino IDE 1.8.19+` for Arduino](https://github.com/arduino/Arduino). [![GitHub release](https://img.shields.io/github/release/arduino/Arduino.svg)](https://github.com/arduino/Arduino/releases/latest)
- 2. [`ESP32 Core 2.0.5+`](https://github.com/espressif/arduino-esp32) for ESP32-based ESP32S2/S3/C3_DEV with ENC28J60 boards. [![Latest release](https://img.shields.io/github/release/espressif/arduino-esp32.svg)](https://github.com/espressif/arduino-esp32/releases/latest/)
+ 2. [`ESP32 Core 2.0.6+`](https://github.com/espressif/arduino-esp32) for ESP32-based ESP32S2/S3/C3_DEV with ENC28J60 boards. [![Latest release](https://img.shields.io/github/release/espressif/arduino-esp32.svg)](https://github.com/espressif/arduino-esp32/releases/latest/)
 
 
 ---
@@ -458,6 +497,8 @@ You can change the `INT` pin to another one. Default is `GPIO4`
 
 #### ENC28J60
 
+`FULL_DUPLEX, 10Mbps`
+
 <p align="center">
     <img src="https://github.com/khoih-prog/WebServer_ESP32_SC_ENC/raw/main/pics/ENC28J60.png">
 </p>
@@ -476,7 +517,7 @@ You can change the `INT` pin to another one. Default is `GPIO4`
 |MOSI|<--->|GPIO11|
 |MISO|<--->|GPIO13|
 |SCK|<--->|GPIO12|
-|SS|<--->|GPIO10|
+|CS/SS|<--->|GPIO10|
 |INT|<--->|GPIO4|
 |GND|<--->|GND|
 |3.3V|<--->|3.3V|
@@ -496,7 +537,7 @@ You can change the `INT` pin to another one. Default is `GPIO4`
 |MOSI|<--->|GPIO35|
 |MISO|<--->|GPIO37|
 |SCK|<--->|GPIO36|
-|SS|<--->|GPIO34|
+|CS/SS|<--->|GPIO34|
 |INT|<--->|GPIO4|
 |RST|<--->|RST|
 |GND|<--->|GND|
@@ -518,7 +559,7 @@ You can change the `INT` pin to another one. Default is `GPIO4`
 |MOSI|<--->|GPIO6|
 |MISO|<--->|GPIO5|
 |SCK|<--->|GPIO4|
-|SS|<--->|GPIO7|
+|CS/SS|<--->|GPIO7|
 |INT|<--->|GPIO10|
 |RST|<--->|RST|
 |GND|<--->|GND|
@@ -558,7 +599,7 @@ You can change the `INT` pin to another one. Default is `GPIO4`
 #### File [AdvancedWebServer.ino](examples/AdvancedWebServer/AdvancedWebServer.ino)
 
 
-https://github.com/khoih-prog/WebServer_ESP32_SC_ENC/blob/f5990cff2bb3c2edadb9f62310d865c5d8beecc9/examples/AdvancedWebServer/AdvancedWebServer.ino#L41-L292
+https://github.com/khoih-prog/WebServer_ESP32_SC_ENC/blob/4e82f384e76f203cd0644c08e9301a1d853a8244/examples/AdvancedWebServer/AdvancedWebServer.ino#L41-L290
 
 ---
 ---
@@ -567,7 +608,7 @@ https://github.com/khoih-prog/WebServer_ESP32_SC_ENC/blob/f5990cff2bb3c2edadb9f6
 
 #### 1. AdvancedWebServer on ESP32S3_DEV with ESP32_S3_ENC28J60
 
-The following are debug terminal output and screen shot when running example [AdvancedWebServer](examples/AdvancedWebServer) on `ESP32S3_DEV` with `ESP32_S3_ENC28J60`
+The following are debug terminal output and screen shot when running example [AdvancedWebServer](examples/AdvancedWebServer) on `ESP32S3_DEV` with `ESP32_S3_ENC28J60`. The `user-defined MAC address` is automatically used now because there is no `built-in MAC address` in ESP32_S3
 
 <p align="center">
     <img src="https://github.com/khoih-prog/WebServer_ESP32_SC_ENC/raw/main/pics/AdvancedWebServer.png">
@@ -576,7 +617,7 @@ The following are debug terminal output and screen shot when running example [Ad
 
 ```cpp
 Start AdvancedWebServer on ESP32S3_DEV with ESP32_S3_ENC28J60
-WebServer_ESP32_SC_ENC v1.2.0 for core v2.0.0+
+WebServer_ESP32_SC_ENC v1.2.1 for core v2.0.0+
 [EWS] Default SPI pinout:
 [EWS] SPI_HOST: 1
 [EWS] MOSI: 11
@@ -584,7 +625,7 @@ WebServer_ESP32_SC_ENC v1.2.0 for core v2.0.0+
 [EWS] SCK: 12
 [EWS] CS: 10
 [EWS] INT: 4
-[EWS] SPI Clock (MHz): 8
+[EWS] SPI Clock (MHz): 20
 [EWS] =========================
 
 ETH Started
@@ -598,12 +639,12 @@ HTTP EthernetWebServer is @ IP : 192.168.2.101
 
 #### 2. MQTT_ThingStream on ESP32S3_DEV with ESP32_S3_ENC28J60
 
-The terminal output of **ESP32S3_DEV with ENC28J60** running [MQTT_ThingStream example](examples/MQTT_ThingStream)
+The terminal output of **ESP32S3_DEV with ENC28J60** running [MQTT_ThingStream example](examples/MQTT_ThingStream). The `user-defined MAC address` is automatically used now because there is no `built-in MAC address` in ESP32_S3
 
 
 ```cpp
 Start MQTT_ThingStream on ESP32S3_DEV with ESP32_S3_ENC28J60
-WebServer_ESP32_SC_ENC v1.2.0 for core v2.0.0+
+WebServer_ESP32_SC_ENC v1.2.1 for core v2.0.0+
 [EWS] Default SPI pinout:
 [EWS] SPI_HOST: 1
 [EWS] MOSI: 11
@@ -611,12 +652,12 @@ WebServer_ESP32_SC_ENC v1.2.0 for core v2.0.0+
 [EWS] SCK: 12
 [EWS] CS: 10
 [EWS] INT: 4
-[EWS] SPI Clock (MHz): 8
+[EWS] SPI Clock (MHz): 20
 [EWS] =========================
 
 ETH Started
 ETH Connected
-ETH MAC: DE:AD:BE:EF:FE:11, IPv4: 192.168.2.232
+ETH MAC: DE:AD:BE:EF:FE:11, IPv4: 192.168.2.101
 FULL_DUPLEX, 10Mbps
 ***************************************
 ESP32_Pub
@@ -637,12 +678,12 @@ MQTT Message receive [ESP32_Pub] Hello from MQTT_ThingStream on ESP32S3_DEV with
 
 #### 3. MQTTClient_Auth on ESP32S3_DEV with ESP32_S3_ENC28J60
 
-The terminal output of **ESP32S3_DEV with ENC28J60** running [MQTTClient_Auth example](examples/MQTTClient_Auth)
+The terminal output of **ESP32S3_DEV with ENC28J60** running [MQTTClient_Auth example](examples/MQTTClient_Auth). The `user-defined MAC address` is automatically used now because there is no `built-in MAC address` in ESP32_S3
 
 
 ```cpp
 Start MQTTClient_Auth on ESP32S3_DEV with ESP32_S3_ENC28J60
-WebServer_ESP32_SC_ENC v1.2.0 for core v2.0.0+
+WebServer_ESP32_SC_ENC v1.2.1 for core v2.0.0+
 [EWS] Default SPI pinout:
 [EWS] SPI_HOST: 1
 [EWS] MOSI: 11
@@ -650,7 +691,7 @@ WebServer_ESP32_SC_ENC v1.2.0 for core v2.0.0+
 [EWS] SCK: 12
 [EWS] CS: 10
 [EWS] INT: 4
-[EWS] SPI Clock (MHz): 8
+[EWS] SPI Clock (MHz): 20
 [EWS] =========================
 
 ETH Started
@@ -667,11 +708,11 @@ Message arrived [MQTT_Pub] Hello from MQTTClient_Auth on ESP32S3_DEV with ESP32_
 
 #### 4. MQTTClient_Basic on ESP32S3_DEV with ESP32_S3_ENC28J60
 
-The terminal output of **ESP32S3_DEV with ENC28J60** running [MQTTClient_Basic example](examples/MQTTClient_Basic)
+The terminal output of **ESP32S3_DEV with ENC28J60** running [MQTTClient_Basic example](examples/MQTTClient_Basic). The `user-defined MAC address` is automatically used now because there is no `built-in MAC address` in ESP32_S3
 
 ```cpp
 Start MQTTClient_Basic on ESP32S3_DEV with ESP32_S3_ENC28J60
-WebServer_ESP32_SC_ENC v1.2.0 for core v2.0.0+
+WebServer_ESP32_SC_ENC v1.2.1 for core v2.0.0+
 [EWS] Default SPI pinout:
 [EWS] SPI_HOST: 1
 [EWS] MOSI: 11
@@ -679,7 +720,7 @@ WebServer_ESP32_SC_ENC v1.2.0 for core v2.0.0+
 [EWS] SCK: 12
 [EWS] CS: 10
 [EWS] INT: 4
-[EWS] SPI Clock (MHz): 8
+[EWS] SPI Clock (MHz): 20
 [EWS] =========================
 
 ETH Started
@@ -697,11 +738,11 @@ Message arrived [MQTT_Pub] Hello from MQTTClient_Basic on ESP32S3_DEV with ESP32
 
 #### 5. WebClient on ESP32S3_DEV with ESP32_S3_ENC28J60
 
-The terminal output of **ESP32S3_DEV with ENC28J60** running [WebClient example](examples/WebClient)
+The terminal output of **ESP32S3_DEV with ENC28J60** running [WebClient example](examples/WebClient). The `user-defined MAC address` is automatically used now because there is no `built-in MAC address` in ESP32_S3
 
 ```cpp
 Start WebClient on ESP32S3_DEV with ESP32_S3_ENC28J60
-WebServer_ESP32_SC_ENC v1.2.0 for core v2.0.0+
+WebServer_ESP32_SC_ENC v1.2.1 for core v2.0.0+
 [EWS] Default SPI pinout:
 [EWS] SPI_HOST: 1
 [EWS] MOSI: 11
@@ -709,7 +750,7 @@ WebServer_ESP32_SC_ENC v1.2.0 for core v2.0.0+
 [EWS] SCK: 12
 [EWS] CS: 10
 [EWS] INT: 4
-[EWS] SPI Clock (MHz): 8
+[EWS] SPI Clock (MHz): 20
 [EWS] =========================
 
 ETH Started
@@ -720,7 +761,7 @@ FULL_DUPLEX, 10Mbps
 Starting connection to server...
 Connected to server
 HTTP/1.1 200 OK
-Date: Wed, 14 Dec 2022 05:19:00 GMT
+Date: Wed, 11 Jan 2023 23:19:00 GMT
 Content-Type: text/plain
 Content-Length: 2263
 Connection: close
@@ -783,11 +824,11 @@ Disconnecting from server...
 
 #### 6. UDPSendReceive on ESP32S3_DEV with ESP32_S3_ENC28J60
 
-The terminal output of **ESP32S3_DEV with ENC28J60** running [UDPSendReceive example](examples/UDPSendReceive)
+The terminal output of **ESP32S3_DEV with ENC28J60** running [UDPSendReceive example](examples/UDPSendReceive). The `user-defined MAC address` is automatically used now because there is no `built-in MAC address` in ESP32_S3
 
 ```cpp
 Start UDPSendReceive on ESP32S3_DEV with ESP32_S3_ENC28J60
-WebServer_ESP32_SC_ENC v1.2.0 for core v2.0.0+
+WebServer_ESP32_SC_ENC v1.2.1 for core v2.0.0+
 [EWS] Default SPI pinout:
 [EWS] SPI_HOST: 1
 [EWS] MOSI: 11
@@ -795,12 +836,12 @@ WebServer_ESP32_SC_ENC v1.2.0 for core v2.0.0+
 [EWS] SCK: 12
 [EWS] CS: 10
 [EWS] INT: 4
-[EWS] SPI Clock (MHz): 8
+[EWS] SPI Clock (MHz): 20
 [EWS] =========================
 
 ETH Started
 ETH Connected
-ETH MAC: DE:AD:BE:EF:BE:0C, IPv4: 192.168.2.232
+ETH MAC: DE:AD:BE:EF:BE:0C, IPv4: 192.168.2.112
 FULL_DUPLEX, 10Mbps
 
 Starting connection to server...
@@ -825,10 +866,9 @@ The UTC time is 19:41:02
 The terminal output of **ESP32S2_DEV with ENC28J60** running [UdpNTPClient example](examples/UdpNTPClient). The `built-in MAC address` is used now instead of user-defined one.
 
 
-
 ```cpp
 Start UdpNTPClient on ESP32S2_DEV with ESP32_S2_ENC28J60
-WebServer_ESP32_SC_ENC v1.2.0 for core v2.0.0+
+WebServer_ESP32_SC_ENC v1.2.1 for core v2.0.0+
 [EWS] Default SPI pinout:
 [EWS] SPI_HOST: 1
 [EWS] MOSI: 35
@@ -836,13 +876,13 @@ WebServer_ESP32_SC_ENC v1.2.0 for core v2.0.0+
 [EWS] SCK: 36
 [EWS] CS: 34
 [EWS] INT: 4
-[EWS] SPI Clock (MHz): 8
+[EWS] SPI Clock (MHz): 20
 [EWS] =========================
 Using built-in mac_eth = 7E:DF:A1:08:64:27
 
 ETH Started
 ETH Connected
-ETH MAC: 7E:DF:A1:08:64:27, IPv4: 192.168.2.232
+ETH MAC: 7E:DF:A1:08:64:27, IPv4: 192.168.2.85
 FULL_DUPLEX, 10Mbps
 UDP Packet received, size 48
 From 132.163.97.2, port 123
@@ -866,7 +906,7 @@ The terminal output of **ESP32C3_DEV with ENC28J60** running [UdpNTPClient examp
 
 ```cpp
 Start UdpNTPClient on ESP32C3_DEV with ESP32_C3_ENC28J60
-WebServer_ESP32_SC_ENC v1.2.0 for core v2.0.0+
+WebServer_ESP32_SC_ENC v1.2.1 for core v2.0.0+
 [EWS] Default SPI pinout:
 [EWS] SPI_HOST: 1
 [EWS] MOSI: 6
@@ -874,34 +914,19 @@ WebServer_ESP32_SC_ENC v1.2.0 for core v2.0.0+
 [EWS] SCK: 4
 [EWS] CS: 7
 [EWS] INT: 10
-[EWS] SPI Clock (MHz): 8
+[EWS] SPI Clock (MHz): 20
 [EWS] =========================
-Using built-in mac_eth = 7C:DF:A1:DA:66:87
+Using built-in mac_eth = 7C:DF:A1:DA:68:BF
 
 ETH Started
 ETH Connected
-ETH MAC: 7C:DF:A1:DA:66:87, IPv4: 192.168.2.232
+ETH MAC: 7C:DF:A1:DA:68:BF, IPv4: 192.168.2.82
 FULL_DUPLEX, 10Mbps
 UDP Packet received, size 48
-From 132.163.97.6, port 123
-Seconds since Jan 1 1900 = 3880554037
-Unix time = 1671565237
-The UTC time is 19:40:37
-UDP Packet received, size 48
-From 132.163.97.6, port 123
-Seconds since Jan 1 1900 = 3880554062
-Unix time = 1671565262
-The UTC time is 19:41:02
-UDP Packet received, size 48
-From 132.163.97.6, port 123
-Seconds since Jan 1 1900 = 3880554122
-Unix time = 1671565322
-The UTC time is 19:42:02
-UDP Packet received, size 48
-From 132.163.97.2, port 123
-Seconds since Jan 1 1900 = 3880554146
-Unix time = 1671565346
-The UTC time is 19:42:26
+From 132.163.96.3, port 123
+Seconds since Jan 1 1900 = 3882472048
+Unix time = 1673483248
+The UTC time is 0:27:28
 ```
 
 
@@ -946,6 +971,9 @@ Submit issues to: [WebServer_ESP32_SC_ENC issues](https://github.com/khoih-prog/
  1. Add support to **ESP32S3-based boards** using `LwIP ENC28J60 Ethernet`
  2. Add support to **ESP32S2-based boards** using `LwIP ENC28J60 Ethernet`
  3. Add support to **ESP32C3-based boards** using `LwIP ENC28J60 Ethernet`
+ 4. Increase default `SPI_CLOCK_MHZ` clock to 20MHz from 8MHz
+ 5. Update examples to use `DHCP` with `built-in ESP32 Ethernet MAC Address`
+
 
 ---
 ---
@@ -971,6 +999,7 @@ Many thanks for everyone for bug reporting, new feature suggesting, testing and 
 ### Contributing
 
 If you want to contribute to this project:
+
 - Report bugs and errors
 - Ask for enhancements
 - Create issues and pull requests
